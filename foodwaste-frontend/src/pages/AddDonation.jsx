@@ -24,7 +24,6 @@ function AddDonation() {
   const [messageType, setMessageType] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   // ==========================================
   // HANDLE INPUT
   // ==========================================
@@ -37,6 +36,246 @@ function AddDonation() {
       ...previousData,
       [name]: value
     }));
+
+    // Clear previous error while typing
+    if (messageType === "error") {
+      setMessage("");
+      setMessageType("");
+    }
+  };
+
+
+  // ==========================================
+  // VALIDATE FORM
+  // ==========================================
+
+  const validateForm = () => {
+
+    const donorName =
+      formData.donorName.trim();
+
+    const foodName =
+      formData.foodName.trim();
+
+    const pickupLocation =
+      formData.pickupLocation.trim();
+
+    const description =
+      formData.description.trim();
+
+    const quantity =
+      Number(formData.quantity);
+
+
+    // ==========================================
+    // DONOR NAME
+    // ==========================================
+
+    if (!donorName) {
+
+      return "Please enter the donor name.";
+
+    }
+
+    if (donorName.length < 2) {
+
+      return "Donor name must contain at least 2 characters.";
+
+    }
+
+    if (donorName.length > 50) {
+
+      return "Donor name cannot exceed 50 characters.";
+
+    }
+
+    if (!/^[A-Za-z\s.]+$/.test(donorName)) {
+
+      return "Donor name can contain only letters, spaces and dots.";
+
+    }
+
+
+    // ==========================================
+    // FOOD NAME
+    // ==========================================
+
+    if (!foodName) {
+
+      return "Please enter the food name.";
+
+    }
+
+    if (foodName.length < 2) {
+
+      return "Food name must contain at least 2 characters.";
+
+    }
+
+    if (foodName.length > 100) {
+
+      return "Food name cannot exceed 100 characters.";
+
+    }
+
+
+    // ==========================================
+    // CATEGORY
+    // ==========================================
+
+    if (!formData.category) {
+
+      return "Please select a food category.";
+
+    }
+
+
+    // ==========================================
+    // UNIT
+    // ==========================================
+
+    if (!formData.unit) {
+
+      return "Please select a unit.";
+
+    }
+
+
+    // ==========================================
+    // QUANTITY
+    // ==========================================
+
+    if (!formData.quantity) {
+
+      return "Please enter the food quantity.";
+
+    }
+
+    if (!Number.isFinite(quantity)) {
+
+      return "Please enter a valid quantity.";
+
+    }
+
+    if (quantity <= 0) {
+
+      return "Quantity must be greater than 0.";
+
+    }
+
+    if (quantity > 100000) {
+
+      return "Quantity cannot exceed 100000.";
+
+    }
+
+    if (!/^\d+(\.\d{1,2})?$/.test(formData.quantity)) {
+
+      return "Quantity can contain only numbers with up to 2 decimal places.";
+
+    }
+
+
+    // ==========================================
+    // PREPARED DATE
+    // ==========================================
+
+    if (!formData.preparedDate) {
+
+      return "Please select the prepared date.";
+
+    }
+
+
+    // ==========================================
+    // EXPIRY DATE
+    // ==========================================
+
+    if (!formData.expiryDate) {
+
+      return "Please select the expiry date.";
+
+    }
+
+
+    // ==========================================
+    // DATE VALIDATION
+    // ==========================================
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const preparedDate =
+      new Date(formData.preparedDate);
+
+    const expiryDate =
+      new Date(formData.expiryDate);
+
+
+    // Prepared date cannot be future
+    if (preparedDate > today) {
+
+      return "Prepared date cannot be in the future.";
+
+    }
+
+
+    // Expiry cannot be before prepared
+    if (expiryDate < preparedDate) {
+
+      return "Expiry date cannot be before prepared date.";
+
+    }
+
+
+    // Expiry cannot be in the past
+    if (expiryDate < today) {
+
+      return "Expiry date cannot be in the past.";
+
+    }
+
+
+    // ==========================================
+    // PICKUP LOCATION
+    // ==========================================
+
+    if (!pickupLocation) {
+
+      return "Please enter the pickup location.";
+
+    }
+
+    if (pickupLocation.length < 3) {
+
+      return "Pickup location must contain at least 3 characters.";
+
+    }
+
+    if (pickupLocation.length > 200) {
+
+      return "Pickup location cannot exceed 200 characters.";
+
+    }
+
+
+    // ==========================================
+    // DESCRIPTION
+    // ==========================================
+
+    if (description.length > 500) {
+
+      return "Description cannot exceed 500 characters.";
+
+    }
+
+
+    // ==========================================
+    // ALL VALID
+    // ==========================================
+
+    return null;
 
   };
 
@@ -57,7 +296,7 @@ function AddDonation() {
     // LOGIN CHECK
     // ==========================================
 
-    if (!userId) {
+    if (!userId || Number(userId) <= 0) {
 
       setMessage(
         "Please login before donating food."
@@ -71,39 +310,15 @@ function AddDonation() {
 
 
     // ==========================================
-    // QUANTITY VALIDATION
+    // FORM VALIDATION
     // ==========================================
 
-    if (
-      !formData.quantity ||
-      Number(formData.quantity) <= 0
-    ) {
+    const validationError =
+      validateForm();
 
-      setMessage(
-        "Please enter a valid quantity."
-      );
+    if (validationError) {
 
-      setMessageType("error");
-
-      return;
-
-    }
-
-
-    // ==========================================
-    // DATE VALIDATION
-    // ==========================================
-
-    if (
-      formData.preparedDate &&
-      formData.expiryDate &&
-      formData.expiryDate <
-        formData.preparedDate
-    ) {
-
-      setMessage(
-        "Expiry date cannot be before prepared date."
-      );
+      setMessage(validationError);
 
       setMessageType("error");
 
@@ -171,8 +386,7 @@ function AddDonation() {
           method: "POST",
 
           headers: {
-            "Content-Type":
-              "application/json"
+            "Content-Type": "application/json"
           },
 
           body: JSON.stringify(
@@ -206,7 +420,9 @@ function AddDonation() {
         setMessageType("success");
 
 
-        // Clear form
+        // ==========================================
+        // CLEAR FORM
+        // ==========================================
 
         setFormData({
           donorName: "",
@@ -221,7 +437,9 @@ function AddDonation() {
         });
 
 
-        // Navigate to My Donations
+        // ==========================================
+        // NAVIGATE
+        // ==========================================
 
         setTimeout(() => {
 
@@ -239,7 +457,6 @@ function AddDonation() {
         setMessageType("error");
 
       }
-
 
     } catch (error) {
 
@@ -329,7 +546,9 @@ function AddDonation() {
           </div>
 
 
-          {/* FORM */}
+          {/* ==================================
+              FORM
+          ================================== */}
 
           <form
             onSubmit={handleSubmit}
@@ -375,6 +594,7 @@ function AddDonation() {
                 placeholder="Enter your name"
                 value={formData.donorName}
                 onChange={handleChange}
+                maxLength="50"
                 required
               />
 
@@ -421,6 +641,7 @@ function AddDonation() {
                 placeholder="Example: Rice, Idli, Bread"
                 value={formData.foodName}
                 onChange={handleChange}
+                maxLength="100"
                 required
               />
 
@@ -532,7 +753,9 @@ function AddDonation() {
                 <input
                   type="number"
                   name="quantity"
-                  min="1"
+                  min="0.01"
+                  max="100000"
+                  step="0.01"
                   className="custom-input"
                   placeholder="Enter quantity"
                   value={formData.quantity}
@@ -574,6 +797,7 @@ function AddDonation() {
 
               <div className="row">
 
+
                 {/* PREPARED */}
 
                 <div className="col-md-6">
@@ -588,6 +812,11 @@ function AddDonation() {
                     className="custom-input"
                     value={formData.preparedDate}
                     onChange={handleChange}
+                    max={
+                      new Date()
+                        .toISOString()
+                        .split("T")[0]
+                    }
                     required
                   />
 
@@ -608,6 +837,12 @@ function AddDonation() {
                     className="custom-input"
                     value={formData.expiryDate}
                     onChange={handleChange}
+                    min={
+                      formData.preparedDate ||
+                      new Date()
+                        .toISOString()
+                        .split("T")[0]
+                    }
                     required
                   />
 
@@ -656,6 +891,7 @@ function AddDonation() {
                 placeholder="Example: Chennai"
                 value={formData.pickupLocation}
                 onChange={handleChange}
+                maxLength="200"
                 required
               />
 
@@ -697,10 +933,15 @@ function AddDonation() {
                 name="description"
                 className="custom-input custom-textarea"
                 rows="4"
+                maxLength="500"
                 placeholder="Example: Vegetarian food, freshly prepared..."
                 value={formData.description}
                 onChange={handleChange}
               />
+
+              <small className="description-counter">
+                {formData.description.length}/500 characters
+              </small>
 
             </div>
 
@@ -758,8 +999,11 @@ function AddDonation() {
                 {loading ? (
 
                   <>
+
                     <span className="button-spinner"></span>
+
                     Adding Donation...
+
                   </>
 
                 ) : (

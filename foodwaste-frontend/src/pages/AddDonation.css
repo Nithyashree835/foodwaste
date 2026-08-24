@@ -417,3 +417,49 @@
     }
 
 }
+
+
+
+
+
+
+
+
+/* ==========================================
+   DESCRIPTION COUNTER
+========================================== */
+
+.description-counter {
+    display: block;
+    margin-top: 6px;
+    text-align: right;
+    color: #888;
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   INVALID INPUT
+========================================== */
+
+.custom-input:invalid:not(:placeholder-shown) {
+    border-color: #dc3545;
+}
+
+
+/* ==========================================
+   SELECT FOCUS
+========================================== */
+
+select.custom-input {
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   DATE INPUT
+========================================== */
+
+input[type="date"].custom-input {
+    cursor: pointer;
+}
