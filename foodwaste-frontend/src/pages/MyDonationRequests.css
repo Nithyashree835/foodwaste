@@ -1,0 +1,430 @@
+/* =========================================
+   MY DONATION REQUESTS PAGE
+========================================= */
+
+.my-requests-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #f4fbf7,
+    #ffffff,
+    #f0f8f3
+  );
+  padding: 40px 0 70px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.my-requests-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 28px 30px;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    #0f5132,
+    #198754
+  );
+  color: white;
+}
+
+.my-requests-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.my-requests-header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.my-requests-header-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 32px;
+}
+
+/* =========================================
+   STATS
+========================================= */
+
+.my-requests-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 35px;
+}
+
+.my-requests-stat {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #edf3ef;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.my-requests-stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #e9f7ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.my-requests-stat-value {
+  font-size: 25px;
+  font-weight: 800;
+  color: #173b2a;
+}
+
+.my-requests-stat-label {
+  font-size: 13px;
+  color: #7a8a80;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.my-requests-message {
+  background: #fff0f1;
+  color: #dc3545;
+  border: 1px solid #ffd3d7;
+  border-radius: 14px;
+  padding: 13px 15px;
+  margin-bottom: 25px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.my-requests-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.my-requests-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #edf1ee;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+}
+
+.my-requests-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+}
+
+/* =========================================
+   FOOD VISUAL
+========================================= */
+
+.my-requests-visual {
+  height: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at top left,
+      #dff7e8,
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #f2fbf5,
+      #e8f6ed
+    );
+  position: relative;
+}
+
+.my-requests-emoji {
+  font-size: 72px;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.my-requests-status {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.my-requests-status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.my-requests-status-approved {
+  background: #dff7e8;
+  color: #157347;
+}
+
+.my-requests-status-rejected {
+  background: #fff0f1;
+  color: #dc3545;
+}
+
+/* =========================================
+   CARD BODY
+========================================= */
+
+.my-requests-card-body {
+  padding: 22px;
+}
+
+.my-requests-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #173b2a;
+  margin: 0;
+}
+
+.my-requests-category {
+  font-size: 13px;
+  color: #7c8b82;
+  margin: 5px 0 17px;
+}
+
+/* =========================================
+   DETAILS
+========================================= */
+
+.my-requests-details {
+  border-top: 1px solid #edf1ee;
+  padding-top: 15px;
+}
+
+.my-requests-detail {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #536158;
+}
+
+.my-requests-detail-icon {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.my-requests-detail strong {
+  color: #27352d;
+}
+
+/* =========================================
+   INFO BOX
+========================================= */
+
+.my-requests-info {
+  border-radius: 14px;
+  padding: 13px 15px;
+  margin-top: 17px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.my-requests-info-warning {
+  background: #fff7df;
+  color: #856404;
+}
+
+.my-requests-info-success {
+  background: #eaf8ef;
+  color: #157347;
+}
+
+.my-requests-info-danger {
+  background: #fff0f1;
+  color: #dc3545;
+}
+
+/* =========================================
+   REQUEST ACTIONS
+========================================= */
+
+.my-requests-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.my-requests-accept-btn,
+.my-requests-reject-btn {
+  border: none;
+  border-radius: 13px;
+  padding: 12px 15px;
+  font-weight: 700;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.my-requests-accept-btn {
+  background: #e9f7ef;
+  color: #157347;
+  border: 1px solid #ccebd8;
+}
+
+.my-requests-accept-btn:hover {
+  background: #198754;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.my-requests-reject-btn {
+  background: #fff0f1;
+  color: #dc3545;
+  border: 1px solid #ffd3d7;
+}
+
+.my-requests-reject-btn:hover {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.my-requests-empty {
+  background: white;
+  border-radius: 25px;
+  padding: 70px 25px;
+  text-align: center;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+}
+
+.my-requests-empty-icon {
+  width: 90px;
+  height: 90px;
+  margin: auto;
+  border-radius: 50%;
+  background: #e9f7ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 43px;
+}
+
+.my-requests-empty h3 {
+  margin-top: 20px;
+  font-weight: 800;
+  color: #173b2a;
+}
+
+.my-requests-empty p {
+  color: #7b8981;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.my-requests-loading {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-requests-loading-circle {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #dff0e5;
+  border-top-color: #198754;
+  border-radius: 50%;
+  animation: myRequestsSpin 0.8s linear infinite;
+}
+
+.my-requests-loading p {
+  margin-top: 15px;
+  color: #7a8a80;
+}
+
+@keyframes myRequestsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 992px) {
+
+  .my-requests-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .my-requests-page {
+    padding: 25px 0 50px;
+  }
+
+  .my-requests-grid,
+  .my-requests-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .my-requests-header {
+    padding: 22px;
+  }
+
+  .my-requests-header h1 {
+    font-size: 25px;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .my-requests-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .my-requests-actions {
+    grid-template-columns: 1fr;
+  }
+
+}

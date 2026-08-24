@@ -1,0 +1,876 @@
+
+/* =========================================
+   FOODRESCUE AUTH PAGES
+========================================= */
+
+.auth-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      #d1fae5 0,
+      transparent 35%
+    ),
+    #f4f8f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  font-family:
+    "Inter",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.auth-container {
+  width: 100%;
+  max-width: 1050px;
+  min-height: 650px;
+
+  background: white;
+
+  border-radius: 28px;
+
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 45% 55%;
+
+  box-shadow:
+    0 25px 70px rgba(6, 78, 59, 0.15);
+}
+
+
+/* =========================================
+   BRAND PANEL
+========================================= */
+
+.auth-brand-panel {
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      #064e3b,
+      #047857 55%,
+      #059669
+    );
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+
+  padding: 55px;
+}
+
+
+.auth-brand-panel::before {
+  content: "";
+
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.06);
+
+  top: -100px;
+  right: -100px;
+}
+
+
+.auth-brand-panel::after {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+  height: 250px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.05);
+
+  bottom: -100px;
+  left: -80px;
+}
+
+
+.auth-brand-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.auth-logo {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 22px;
+
+  background: rgba(255,255,255,0.15);
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 36px;
+
+  margin-bottom: 25px;
+
+  backdrop-filter: blur(10px);
+}
+
+
+.auth-brand-panel h1 {
+  font-size: 42px;
+
+  margin: 0;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+}
+
+
+.auth-tagline {
+  margin-top: 5px;
+
+  font-size: 16px;
+
+  opacity: 0.75;
+}
+
+
+.auth-description {
+  max-width: 360px;
+
+  margin-top: 25px;
+
+  font-size: 15px;
+
+  line-height: 1.8;
+
+  color: rgba(255,255,255,0.8);
+}
+
+
+/* =========================================
+   DECORATION
+========================================= */
+
+.auth-decoration {
+  position: absolute;
+
+  right: -10px;
+  top: 80px;
+
+  font-size: 110px;
+
+  opacity: 0.12;
+
+  transform: rotate(-15deg);
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.auth-features {
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+.auth-features div {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 14px;
+
+  color: rgba(255,255,255,0.9);
+}
+
+
+.auth-features span {
+  width: 22px;
+  height: 22px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   FORM PANEL
+========================================= */
+
+.auth-form-panel {
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 50px;
+}
+
+
+.auth-form-wrapper {
+  width: 100%;
+  max-width: 430px;
+}
+
+
+/* =========================================
+   MOBILE LOGO
+========================================= */
+
+.auth-mobile-logo {
+  display: none;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.auth-heading {
+  margin-bottom: 30px;
+}
+
+
+.auth-welcome {
+  display: inline-block;
+
+  color: #059669;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 8px;
+}
+
+
+.auth-heading h2 {
+  margin: 0;
+
+  font-size: 30px;
+
+  font-weight: 800;
+
+  color: #064e3b;
+
+  letter-spacing: -0.5px;
+}
+
+
+.auth-heading p {
+  margin-top: 8px;
+
+  margin-bottom: 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.auth-input-group {
+  margin-bottom: 19px;
+}
+
+
+.auth-input-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+.auth-input-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.auth-input-wrapper input {
+  width: 100%;
+
+  height: 50px;
+
+  border: 1px solid #dce7e1;
+
+  border-radius: 12px;
+
+  padding:
+    0 45px;
+
+  background: #f9fcfa;
+
+  color: #1f2937;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.auth-input-wrapper input:focus {
+  background: white;
+
+  border-color: #059669;
+
+  box-shadow:
+    0 0 0 4px rgba(5,150,105,0.10);
+}
+
+
+.auth-input-wrapper input::placeholder {
+  color: #9ca3af;
+}
+
+
+.auth-input-icon {
+  position: absolute;
+
+  left: 15px;
+
+  font-size: 15px;
+
+  z-index: 2;
+}
+
+
+.password-toggle {
+  position: absolute;
+
+  right: 12px;
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  padding: 5px;
+}
+
+
+.auth-label-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.password-hint {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #9ca3af;
+
+  font-size: 11px;
+}
+
+
+/* =========================================
+   ROLE SELECTION
+========================================= */
+
+.role-selection {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+}
+
+
+.role-card {
+  position: relative;
+
+  border: 1px solid #dce7e1;
+
+  background: #f9fcfa;
+
+  border-radius: 13px;
+
+  padding: 13px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.role-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #86efac;
+}
+
+
+.role-card.selected {
+  background: #ecfdf5;
+
+  border-color: #059669;
+
+  box-shadow:
+    0 0 0 2px rgba(5,150,105,0.08);
+}
+
+
+.role-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+}
+
+
+.role-text {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.role-text strong {
+  color: #064e3b;
+
+  font-size: 12px;
+}
+
+
+.role-text small {
+  color: #6b7280;
+
+  font-size: 10px;
+
+  white-space: nowrap;
+}
+
+
+.role-check {
+  position: absolute;
+
+  top: 8px;
+  right: 9px;
+
+  color: #059669;
+
+  font-weight: 800;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.auth-message {
+  border-radius: 10px;
+
+  padding: 11px 13px;
+
+  margin-bottom: 18px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.auth-message.success {
+  color: #166534;
+
+  background: #dcfce7;
+
+  border: 1px solid #bbf7d0;
+}
+
+
+.auth-message.error {
+  color: #991b1b;
+
+  background: #fee2e2;
+
+  border: 1px solid #fecaca;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.auth-submit {
+  width: 100%;
+
+  height: 51px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #059669,
+      #047857
+    );
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  box-shadow:
+    0 8px 20px rgba(4,120,87,0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.auth-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(4,120,87,0.3);
+}
+
+
+.auth-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+
+.auth-submit:disabled {
+  opacity: 0.7;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   SPINNER
+========================================= */
+
+.auth-spinner {
+  width: 17px;
+  height: 17px;
+
+  border: 2px solid rgba(255,255,255,0.35);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation:
+    authSpin 0.7s linear infinite;
+}
+
+
+@keyframes authSpin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* =========================================
+   SWITCH
+========================================= */
+
+.auth-switch {
+  text-align: center;
+
+  margin-top: 25px;
+
+  font-size: 13px;
+
+  color: #6b7280;
+}
+
+
+.auth-switch a {
+  margin-left: 5px;
+
+  color: #059669;
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.auth-footer {
+  text-align: center;
+
+  margin-top: 25px;
+
+  font-size: 11px;
+
+  color: #9ca3af;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 850px) {
+
+  .auth-container {
+    grid-template-columns: 40% 60%;
+  }
+
+  .auth-brand-panel {
+    padding: 35px;
+  }
+
+  .auth-brand-panel h1 {
+    font-size: 34px;
+  }
+
+  .auth-form-panel {
+    padding: 35px;
+  }
+
+  .role-selection {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .auth-page {
+    padding: 0;
+
+    min-height: 100vh;
+  }
+
+
+  .auth-container {
+    min-height: 100vh;
+
+    border-radius: 0;
+
+    display: block;
+
+    box-shadow: none;
+  }
+
+
+  .auth-brand-panel {
+    display: none;
+  }
+
+
+  .auth-form-panel {
+    min-height: 100vh;
+
+    padding:
+      35px 22px;
+  }
+
+
+  .auth-form-wrapper {
+    max-width: 100%;
+  }
+
+
+  .auth-mobile-logo {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 30px;
+
+    color: #064e3b;
+
+    font-size: 20px;
+
+    font-weight: 800;
+  }
+
+
+  .auth-logo.small {
+    width: 42px;
+    height: 42px;
+
+    margin: 0;
+
+    border-radius: 13px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #059669,
+        #047857
+      );
+
+    font-size: 22px;
+  }
+
+
+  .auth-heading {
+    text-align: center;
+
+    margin-bottom: 28px;
+  }
+
+
+  .auth-heading h2 {
+    font-size: 26px;
+  }
+
+
+  .role-selection {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+  .auth-form-panel {
+    padding:
+      25px 17px;
+  }
+
+
+  .auth-heading h2 {
+    font-size: 23px;
+  }
+
+
+  .auth-input-wrapper input {
+    height: 48px;
+  }
+
+
+  .auth-submit {
+    height: 48px;
+  }
+
+}

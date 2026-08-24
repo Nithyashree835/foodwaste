@@ -1,0 +1,471 @@
+.my-requests-page {
+    min-height: 100vh;
+    background: #f6f8f7;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.requests-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.requests-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.title-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #198754;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 8px 20px rgba(25, 135, 84, 0.2);
+}
+
+.requests-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #17221b;
+}
+
+.requests-header p {
+    margin: 5px 0 0;
+    color: #777;
+}
+
+
+.total-request-box {
+    background: white;
+    padding: 14px 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    border: 1px solid #edf0ee;
+}
+
+.total-request-box span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+}
+
+.total-request-box strong {
+    display: block;
+    color: #198754;
+    font-size: 25px;
+    margin-top: 2px;
+}
+
+
+/* ==========================================
+   SUMMARY
+========================================== */
+
+.request-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #edf0ee;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+}
+
+.summary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.summary-icon.pending {
+    background: #fff3cd;
+}
+
+.summary-icon.approved {
+    background: #d1e7dd;
+}
+
+.summary-icon.rejected {
+    background: #f8d7da;
+}
+
+.summary-card span {
+    display: block;
+    color: #777;
+    font-size: 14px;
+}
+
+.summary-card strong {
+    display: block;
+    font-size: 25px;
+    color: #222;
+}
+
+
+/* ==========================================
+   REQUEST CARD
+========================================== */
+
+.request-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid #e9eeeb;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.06);
+    height: 100%;
+    transition: 0.25s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ==========================================
+   CARD TOP
+========================================== */
+
+.request-card-top {
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #157347
+    );
+
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.food-icon {
+    width: 55px;
+    height: 55px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+}
+
+.request-number {
+    margin-left: 12px;
+    color: white;
+}
+
+.request-number span {
+    display: block;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.request-number strong {
+    font-size: 18px;
+}
+
+
+.status-badge {
+    margin-left: auto;
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.approved {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-badge.rejected {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* ==========================================
+   CARD BODY
+========================================== */
+
+.request-card-body {
+    padding: 22px;
+}
+
+.donation-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #198754;
+}
+
+.request-card-body h3 {
+    margin: 5px 0 9px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1c241f;
+}
+
+.category-badge {
+    display: inline-block;
+    background: #edf8f2;
+    color: #198754;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   DETAILS
+========================================== */
+
+.request-details {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.detail-icon {
+    width: 36px;
+    height: 36px;
+    background: #f3f6f4;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.detail-item small {
+    display: block;
+    color: #888;
+    font-size: 11px;
+}
+
+.detail-item strong {
+    display: block;
+    color: #333;
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+
+/* ==========================================
+   STATUS MESSAGE
+========================================== */
+
+.request-message {
+    margin-top: 20px;
+    padding: 13px;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.request-message > span {
+    font-size: 18px;
+}
+
+.request-message strong {
+    font-size: 13px;
+}
+
+.request-message p {
+    margin: 3px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.pending-message {
+    background: #fff8e1;
+    color: #765b00;
+}
+
+.approved-message {
+    background: #eaf7ef;
+    color: #146c43;
+}
+
+.rejected-message {
+    background: #fcebec;
+    color: #b02a37;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.request-card-footer {
+    border-top: 1px solid #edf0ee;
+    padding: 13px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafbfa;
+}
+
+.request-card-footer span {
+    color: #888;
+    font-size: 12px;
+}
+
+.request-card-footer strong {
+    color: #198754;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.empty-requests {
+    background: white;
+    border-radius: 20px;
+    padding: 80px 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.empty-icon {
+    width: 90px;
+    height: 90px;
+    background: #eaf7ef;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+}
+
+.empty-requests h2 {
+    font-weight: 700;
+}
+
+.empty-requests p {
+    color: #888;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.requests-loading {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+.requests-loading h5 {
+    margin-top: 18px;
+    margin-bottom: 5px;
+}
+
+.requests-loading p {
+    color: #999;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .requests-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .total-request-box {
+        width: 100%;
+        text-align: left;
+    }
+
+    .request-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .requests-header h1 {
+        font-size: 26px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .requests-title-row {
+        align-items: flex-start;
+    }
+
+    .title-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .request-card-top {
+        padding: 16px;
+    }
+
+    .request-card-body {
+        padding: 18px;
+    }
+
+    .status-badge {
+        font-size: 9px;
+        padding: 6px 8px;
+    }
+
+}
