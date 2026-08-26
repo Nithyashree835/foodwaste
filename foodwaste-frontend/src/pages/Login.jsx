@@ -45,7 +45,7 @@ function Login() {
     try {
 
       const response = await fetch(
-        "http://foodwaste-backend-btuy.onrender.com/api/auth/login",
+  "https://foodwaste-backend-btuy.onrender.com/api/auth/login",
         {
           method: "POST",
 
