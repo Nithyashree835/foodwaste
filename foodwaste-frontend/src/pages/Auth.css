@@ -1,10 +1,14 @@
+/* =========================================================
+   FOODRESCUE AUTH
+========================================================= */
 
-/* =========================================
-   FOODRESCUE AUTH PAGES
-========================================= */
+* {
+  box-sizing: border-box;
+}
 
 .auth-page {
   min-height: 100vh;
+  width: 100%;
   background:
     radial-gradient(
       circle at top left,
@@ -27,44 +31,44 @@
 }
 
 
-/* =========================================
+/* =========================================================
    MAIN CONTAINER
-========================================= */
+========================================================= */
 
 .auth-container {
   width: 100%;
-  max-width: 1050px;
-  min-height: 650px;
+  max-width: 1100px;
+  min-height: 680px;
 
-  background: white;
+  background: #ffffff;
 
   border-radius: 28px;
-
   overflow: hidden;
 
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 44% 56%;
 
   box-shadow:
-    0 25px 70px rgba(6, 78, 59, 0.15);
+    0 30px 80px rgba(6, 78, 59, 0.16);
+
+  border: 1px solid rgba(6, 78, 59, 0.04);
 }
 
 
-/* =========================================
+/* =========================================================
    BRAND PANEL
-========================================= */
+========================================================= */
 
 .auth-brand-panel {
   position: relative;
-
   overflow: hidden;
 
   background:
     linear-gradient(
       145deg,
-      #064e3b,
+      #064e3b 0%,
       #047857 55%,
-      #059669
+      #059669 100%
     );
 
   color: white;
@@ -76,20 +80,23 @@
 }
 
 
+/* Decorative circles */
+
 .auth-brand-panel::before {
   content: "";
 
   position: absolute;
 
-  width: 300px;
-  height: 300px;
+  width: 340px;
+  height: 340px;
 
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.06);
+  background:
+    rgba(255, 255, 255, 0.06);
 
-  top: -100px;
-  right: -100px;
+  top: -150px;
+  right: -120px;
 }
 
 
@@ -98,37 +105,42 @@
 
   position: absolute;
 
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
 
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.05);
+  background:
+    rgba(255, 255, 255, 0.05);
 
-  bottom: -100px;
-  left: -80px;
+  bottom: -140px;
+  left: -100px;
 }
 
 
 .auth-brand-content {
   position: relative;
   z-index: 2;
+
+  width: 100%;
 }
 
 
-/* =========================================
+/* =========================================================
    LOGO
-========================================= */
+========================================================= */
 
 .auth-logo {
-  width: 70px;
-  height: 70px;
+  width: 72px;
+  height: 72px;
 
   border-radius: 22px;
 
-  background: rgba(255,255,255,0.15);
+  background:
+    rgba(255, 255, 255, 0.14);
 
-  border: 1px solid rgba(255,255,255,0.2);
+  border:
+    1px solid rgba(255, 255, 255, 0.20);
 
   display: flex;
   align-items: center;
@@ -138,72 +150,80 @@
 
   margin-bottom: 25px;
 
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 
 .auth-brand-panel h1 {
-  font-size: 42px;
-
   margin: 0;
+
+  font-size: 44px;
 
   font-weight: 800;
 
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
 }
 
 
 .auth-tagline {
-  margin-top: 5px;
+  margin:
+    6px 0 0;
 
   font-size: 16px;
 
-  opacity: 0.75;
+  color:
+    rgba(255, 255, 255, 0.78);
 }
 
 
 .auth-description {
-  max-width: 360px;
+  max-width: 370px;
 
-  margin-top: 25px;
+  margin-top: 27px;
 
   font-size: 15px;
 
   line-height: 1.8;
 
-  color: rgba(255,255,255,0.8);
+  color:
+    rgba(255, 255, 255, 0.80);
 }
 
 
-/* =========================================
+/* =========================================================
    DECORATION
-========================================= */
+========================================================= */
 
 .auth-decoration {
   position: absolute;
 
-  right: -10px;
-  top: 80px;
+  right: -5px;
+  top: 65px;
 
-  font-size: 110px;
+  font-size: 115px;
 
-  opacity: 0.12;
+  opacity: 0.11;
 
   transform: rotate(-15deg);
+
+  pointer-events: none;
 }
 
 
-/* =========================================
+/* =========================================================
    FEATURES
-========================================= */
+========================================================= */
 
 .auth-features {
-  margin-top: 30px;
+  margin-top: 32px;
 
   display: flex;
   flex-direction: column;
 
-  gap: 14px;
+  gap: 15px;
 }
 
 
@@ -211,36 +231,42 @@
   display: flex;
   align-items: center;
 
-  gap: 10px;
+  gap: 11px;
 
   font-size: 14px;
 
-  color: rgba(255,255,255,0.9);
+  color:
+    rgba(255, 255, 255, 0.92);
 }
 
 
 .auth-features span {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.15);
+  background:
+    rgba(255, 255, 255, 0.15);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-size: 12px;
+
+  font-weight: 700;
 }
 
 
-/* =========================================
+/* =========================================================
    FORM PANEL
-========================================= */
+========================================================= */
 
 .auth-form-panel {
-  background: white;
+  background: #ffffff;
 
   display: flex;
   align-items: center;
@@ -252,25 +278,25 @@
 
 .auth-form-wrapper {
   width: 100%;
-  max-width: 430px;
+  max-width: 450px;
 }
 
 
-/* =========================================
+/* =========================================================
    MOBILE LOGO
-========================================= */
+========================================================= */
 
 .auth-mobile-logo {
   display: none;
 }
 
 
-/* =========================================
+/* =========================================================
    HEADING
-========================================= */
+========================================================= */
 
 .auth-heading {
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 
@@ -279,13 +305,13 @@
 
   color: #059669;
 
-  font-size: 13px;
+  font-size: 12px;
 
-  font-weight: 700;
+  font-weight: 800;
 
   text-transform: uppercase;
 
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 
   margin-bottom: 8px;
 }
@@ -294,20 +320,19 @@
 .auth-heading h2 {
   margin: 0;
 
-  font-size: 30px;
+  color: #064e3b;
+
+  font-size: 31px;
 
   font-weight: 800;
 
-  color: #064e3b;
-
-  letter-spacing: -0.5px;
+  letter-spacing: -0.7px;
 }
 
 
 .auth-heading p {
-  margin-top: 8px;
-
-  margin-bottom: 0;
+  margin:
+    8px 0 0;
 
   color: #6b7280;
 
@@ -315,49 +340,57 @@
 }
 
 
-/* =========================================
-   INPUT
-========================================= */
+/* =========================================================
+   INPUT GROUP
+========================================================= */
 
 .auth-input-group {
-  margin-bottom: 19px;
+  margin-bottom: 17px;
 }
 
 
 .auth-input-group label {
   display: block;
 
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 
   color: #374151;
 
-  font-size: 13px;
+  font-size: 12px;
 
   font-weight: 700;
 }
 
 
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
 .auth-input-wrapper {
   position: relative;
+
+  width: 100%;
 
   display: flex;
   align-items: center;
 }
 
 
-.auth-input-wrapper input {
+.auth-input-wrapper input,
+.auth-input-wrapper select {
   width: 100%;
+  height: 49px;
 
-  height: 50px;
-
-  border: 1px solid #dce7e1;
+  border:
+    1px solid #dce7e1;
 
   border-radius: 12px;
 
   padding:
     0 45px;
 
-  background: #f9fcfa;
+  background:
+    #f9fcfa;
 
   color: #1f2937;
 
@@ -366,19 +399,27 @@
   outline: none;
 
   transition:
-    border 0.2s ease,
+    border-color 0.2s ease,
     box-shadow 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 
-.auth-input-wrapper input:focus {
-  background: white;
+.auth-input-wrapper input:hover,
+.auth-input-wrapper select:hover {
+  border-color: #b8d8ca;
+}
+
+
+.auth-input-wrapper input:focus,
+.auth-input-wrapper select:focus {
+  background: #ffffff;
 
   border-color: #059669;
 
   box-shadow:
-    0 0 0 4px rgba(5,150,105,0.10);
+    0 0 0 4px rgba(5, 150, 105, 0.10);
 }
 
 
@@ -386,6 +427,10 @@
   color: #9ca3af;
 }
 
+
+/* =========================================================
+   INPUT ICON
+========================================================= */
 
 .auth-input-icon {
   position: absolute;
@@ -395,29 +440,45 @@
   font-size: 15px;
 
   z-index: 2;
+
+  pointer-events: none;
 }
 
+
+/* =========================================================
+   PASSWORD
+========================================================= */
 
 .password-toggle {
   position: absolute;
 
-  right: 12px;
+  right: 10px;
+
+  width: 34px;
+  height: 34px;
 
   border: none;
+
+  border-radius: 8px;
 
   background: transparent;
 
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 16px;
 
-  padding: 5px;
+  transition:
+    background 0.2s ease;
 }
 
 
-.auth-label-row {
-  display: flex;
-  justify-content: space-between;
+.password-toggle:hover {
+  background:
+    #ecfdf5;
 }
 
 
@@ -428,13 +489,74 @@
 
   color: #9ca3af;
 
-  font-size: 11px;
+  font-size: 10px;
+
+  line-height: 1.5;
 }
 
 
-/* =========================================
+/* =========================================================
+   VALIDATION ERROR
+========================================================= */
+
+.auth-input-wrapper.input-error input,
+.auth-input-wrapper.input-error select {
+  border-color: #ef4444;
+
+  background: #fffafa;
+
+  box-shadow:
+    0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+
+.auth-input-wrapper.input-error input:focus,
+.auth-input-wrapper.input-error select:focus {
+  border-color: #dc2626;
+
+  box-shadow:
+    0 0 0 4px rgba(239, 68, 68, 0.10);
+}
+
+
+.field-error {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dc2626;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.auth-input-wrapper select {
+  appearance: auto;
+
+  cursor: pointer;
+
+  padding-left: 45px;
+}
+
+
+.auth-input-wrapper select option {
+  color: #1f2937;
+
+  background: #ffffff;
+}
+
+
+/* =========================================================
    ROLE SELECTION
-========================================= */
+========================================================= */
 
 .role-selection {
   display: grid;
@@ -448,13 +570,17 @@
 .role-card {
   position: relative;
 
-  border: 1px solid #dce7e1;
+  min-height: 70px;
 
-  background: #f9fcfa;
+  border:
+    1px solid #dce7e1;
+
+  background:
+    #f9fcfa;
 
   border-radius: 13px;
 
-  padding: 13px;
+  padding: 12px;
 
   display: flex;
   align-items: center;
@@ -466,9 +592,10 @@
   cursor: pointer;
 
   transition:
-    border 0.2s ease,
+    border-color 0.2s ease,
     background 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 
@@ -476,34 +603,42 @@
   transform: translateY(-2px);
 
   border-color: #86efac;
+
+  box-shadow:
+    0 8px 20px rgba(5, 150, 105, 0.08);
 }
 
 
 .role-card.selected {
-  background: #ecfdf5;
+  background:
+    #ecfdf5;
 
-  border-color: #059669;
+  border-color:
+    #059669;
 
   box-shadow:
-    0 0 0 2px rgba(5,150,105,0.08);
+    0 0 0 2px rgba(5, 150, 105, 0.08);
 }
 
 
 .role-icon {
-  width: 36px;
-  height: 36px;
+  width: 37px;
+  height: 37px;
 
   flex-shrink: 0;
 
   border-radius: 10px;
 
-  background: white;
+  background: #ffffff;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-size: 18px;
+
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.04);
 }
 
 
@@ -521,6 +656,8 @@
   color: #064e3b;
 
   font-size: 12px;
+
+  font-weight: 800;
 }
 
 
@@ -541,26 +678,29 @@
 
   color: #059669;
 
-  font-weight: 800;
-
   font-size: 12px;
+
+  font-weight: 800;
 }
 
 
-/* =========================================
+/* =========================================================
    MESSAGE
-========================================= */
+========================================================= */
 
 .auth-message {
   border-radius: 10px;
 
-  padding: 11px 13px;
+  padding:
+    11px 13px;
 
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 
-  font-size: 13px;
+  font-size: 12px;
 
   font-weight: 600;
+
+  line-height: 1.5;
 }
 
 
@@ -569,7 +709,8 @@
 
   background: #dcfce7;
 
-  border: 1px solid #bbf7d0;
+  border:
+    1px solid #bbf7d0;
 }
 
 
@@ -578,13 +719,14 @@
 
   background: #fee2e2;
 
-  border: 1px solid #fecaca;
+  border:
+    1px solid #fecaca;
 }
 
 
-/* =========================================
+/* =========================================================
    SUBMIT BUTTON
-========================================= */
+========================================================= */
 
 .auth-submit {
   width: 100%;
@@ -602,7 +744,7 @@
       #047857
     );
 
-  color: white;
+  color: #ffffff;
 
   font-size: 14px;
 
@@ -617,11 +759,12 @@
   gap: 10px;
 
   box-shadow:
-    0 8px 20px rgba(4,120,87,0.22);
+    0 8px 20px rgba(4, 120, 87, 0.22);
 
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
 }
 
 
@@ -629,7 +772,7 @@
   transform: translateY(-2px);
 
   box-shadow:
-    0 12px 25px rgba(4,120,87,0.3);
+    0 12px 25px rgba(4, 120, 87, 0.30);
 }
 
 
@@ -639,23 +782,26 @@
 
 
 .auth-submit:disabled {
-  opacity: 0.7;
+  opacity: 0.65;
 
   cursor: not-allowed;
+
+  transform: none;
 }
 
 
-/* =========================================
+/* =========================================================
    SPINNER
-========================================= */
+========================================================= */
 
 .auth-spinner {
   width: 17px;
   height: 17px;
 
-  border: 2px solid rgba(255,255,255,0.35);
+  border:
+    2px solid rgba(255, 255, 255, 0.35);
 
-  border-top-color: white;
+  border-top-color: #ffffff;
 
   border-radius: 50%;
 
@@ -673,14 +819,14 @@
 }
 
 
-/* =========================================
-   SWITCH
-========================================= */
+/* =========================================================
+   LOGIN SWITCH
+========================================================= */
 
 .auth-switch {
   text-align: center;
 
-  margin-top: 25px;
+  margin-top: 22px;
 
   font-size: 13px;
 
@@ -696,34 +842,64 @@
   font-weight: 700;
 
   text-decoration: none;
+
+  transition:
+    color 0.2s ease;
 }
 
 
 .auth-switch a:hover {
+  color: #047857;
+
   text-decoration: underline;
 }
 
 
-/* =========================================
+/* =========================================================
    FOOTER
-========================================= */
+========================================================= */
 
 .auth-footer {
   text-align: center;
 
-  margin-top: 25px;
+  margin-top: 20px;
 
-  font-size: 11px;
+  font-size: 10px;
 
   color: #9ca3af;
 }
 
 
-/* =========================================
-   TABLET
-========================================= */
+/* =========================================================
+   FIELD ANIMATION
+========================================================= */
 
-@media (max-width: 850px) {
+.auth-input-group {
+  animation:
+    authFieldAppear 0.25s ease;
+}
+
+
+@keyframes authFieldAppear {
+
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
 
   .auth-container {
     grid-template-columns: 40% 60%;
@@ -748,9 +924,9 @@
 }
 
 
-/* =========================================
+/* =========================================================
    MOBILE
-========================================= */
+========================================================= */
 
 @media (max-width: 650px) {
 
@@ -762,6 +938,8 @@
 
 
   .auth-container {
+    width: 100%;
+
     min-height: 100vh;
 
     border-radius: 0;
@@ -794,12 +972,11 @@
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 10px;
 
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 
     color: #064e3b;
 
@@ -831,7 +1008,7 @@
   .auth-heading {
     text-align: center;
 
-    margin-bottom: 28px;
+    margin-bottom: 26px;
   }
 
 
@@ -847,9 +1024,9 @@
 }
 
 
-/* =========================================
+/* =========================================================
    SMALL MOBILE
-========================================= */
+========================================================= */
 
 @media (max-width: 400px) {
 
@@ -864,119 +1041,14 @@
   }
 
 
-  .auth-input-wrapper input {
+  .auth-input-wrapper input,
+  .auth-input-wrapper select {
     height: 48px;
   }
 
 
   .auth-submit {
     height: 48px;
-  }
-
-}
-
-/* =========================================
-   EXTRA REGISTRATION FIELDS
-========================================= */
-
-.auth-input-wrapper select {
-  width: 100%;
-  height: 50px;
-
-  border: 1px solid #dce7e1;
-  border-radius: 12px;
-
-  padding: 0 45px;
-
-  background: #f9fcfa;
-  color: #1f2937;
-
-  font-size: 14px;
-
-  outline: none;
-
-  cursor: pointer;
-
-  transition:
-    border 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-
-  appearance: auto;
-}
-
-.auth-input-wrapper select:focus {
-  background: white;
-
-  border-color: #059669;
-
-  box-shadow:
-    0 0 0 4px rgba(5, 150, 105, 0.10);
-}
-
-.auth-input-wrapper select:invalid {
-  color: #9ca3af;
-}
-
-.auth-input-wrapper select option {
-  color: #1f2937;
-  background: white;
-}
-
-
-/* =========================================
-   PHONE FIELD
-========================================= */
-
-.auth-input-wrapper input[type="tel"] {
-  padding-left: 45px;
-}
-
-
-/* =========================================
-   ORGANIZATION FIELDS
-========================================= */
-
-.auth-input-group:has(
-  input[name="organizationName"]
-),
-.auth-input-group:has(
-  select[name="organizationType"]
-) {
-  animation: authFieldAppear 0.25s ease;
-}
-
-
-/* =========================================
-   EXTRA FIELD ANIMATION
-========================================= */
-
-@keyframes authFieldAppear {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 650px) {
-
-  .auth-input-wrapper select {
-    height: 50px;
-    font-size: 14px;
-  }
-
-  .auth-input-wrapper input[type="tel"] {
-    height: 50px;
   }
 
 }

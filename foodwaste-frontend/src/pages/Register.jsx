@@ -17,28 +17,54 @@ function Register() {
     organizationType: ""
   });
 
+  const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
 
-  // ==============================
+  // ==========================================
   // HANDLE INPUT
-  // ==============================
+  // ==========================================
 
   const handleChange = (e) => {
 
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+    const { name, value } = e.target;
+
+    // Phone: allow digits only
+    if (name === "phone") {
+
+      const onlyNumbers = value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+
+      setFormData({
+        ...formData,
+        [name]: onlyNumbers
+      });
+
+    } else {
+
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+
+    }
+
+    // Remove field error while typing
+    setErrors({
+      ...errors,
+      [name]: ""
     });
 
+    setMessage("");
   };
 
 
-  // ==============================
+  // ==========================================
   // CHANGE ROLE
-  // ==============================
+  // ==========================================
 
   const changeRole = (role) => {
 
@@ -47,20 +73,209 @@ function Register() {
       role: role
     });
 
+    setErrors({});
     setMessage("");
-
   };
 
 
-  // ==============================
+  // ==========================================
+  // VALIDATE FORM
+  // ==========================================
+
+  const validateForm = () => {
+
+    const newErrors = {};
+
+    // ------------------------------------------
+    // NAME
+    // ------------------------------------------
+
+    const name = formData.name.trim();
+
+    if (!name) {
+
+      newErrors.name = "Name is required";
+
+    } else if (name.length < 2) {
+
+      newErrors.name = "Name must contain at least 2 characters";
+
+    } else if (name.length > 50) {
+
+      newErrors.name = "Name must not exceed 50 characters";
+
+    } else if (!/^[A-Za-z ]+$/.test(name)) {
+
+      newErrors.name =
+        "Name can contain only letters and spaces";
+
+    }
+
+
+    // ------------------------------------------
+    // EMAIL
+    // ------------------------------------------
+
+    const email = formData.email.trim();
+
+    if (!email) {
+
+      newErrors.email = "Email address is required";
+
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)
+    ) {
+
+      newErrors.email =
+        "Enter a valid email address";
+
+    }
+
+
+    // ------------------------------------------
+    // PASSWORD
+    // ------------------------------------------
+
+    const password = formData.password;
+
+    if (!password) {
+
+      newErrors.password = "Password is required";
+
+    } else if (password.length < 8) {
+
+      newErrors.password =
+        "Password must contain at least 8 characters";
+
+    } else if (!/[A-Z]/.test(password)) {
+
+      newErrors.password =
+        "Password must contain at least one uppercase letter";
+
+    } else if (!/[a-z]/.test(password)) {
+
+      newErrors.password =
+        "Password must contain at least one lowercase letter";
+
+    } else if (!/[0-9]/.test(password)) {
+
+      newErrors.password =
+        "Password must contain at least one number";
+
+    } else if (!/[!@#$%^&*(),.?":{}|<>_\-]/.test(password)) {
+
+      newErrors.password =
+        "Password must contain at least one special character";
+
+    }
+
+
+    // ------------------------------------------
+    // PHONE
+    // ------------------------------------------
+
+    const phone = formData.phone.trim();
+
+    if (!phone) {
+
+      newErrors.phone =
+        "Phone number is required";
+
+    } else if (!/^[6-9][0-9]{9}$/.test(phone)) {
+
+      newErrors.phone =
+        "Enter a valid 10-digit Indian mobile number";
+
+    }
+
+
+    // ------------------------------------------
+    // ADDRESS
+    // ------------------------------------------
+
+    const address = formData.address.trim();
+
+    if (!address) {
+
+      newErrors.address =
+        "Address is required";
+
+    } else if (address.length < 10) {
+
+      newErrors.address =
+        "Address must contain at least 10 characters";
+
+    } else if (address.length > 200) {
+
+      newErrors.address =
+        "Address must not exceed 200 characters";
+
+    }
+
+
+    // ------------------------------------------
+    // NGO VALIDATION
+    // ------------------------------------------
+
+    if (formData.role === "NGO") {
+
+      const organizationName =
+        formData.organizationName.trim();
+
+      if (!organizationName) {
+
+        newErrors.organizationName =
+          "Organization name is required";
+
+      } else if (organizationName.length < 2) {
+
+        newErrors.organizationName =
+          "Organization name must contain at least 2 characters";
+
+      } else if (organizationName.length > 100) {
+
+        newErrors.organizationName =
+          "Organization name must not exceed 100 characters";
+
+      }
+
+
+      if (!formData.organizationType) {
+
+        newErrors.organizationType =
+          "Please select an organization type";
+
+      }
+
+    }
+
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+  // ==========================================
   // REGISTER
-  // ==============================
+  // ==========================================
 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
 
     setMessage("");
+
+    // Stop if validation fails
+    if (!validateForm()) {
+
+      setMessage(
+        "Please correct the highlighted fields"
+      );
+
+      return;
+    }
+
     setLoading(true);
 
 
@@ -89,6 +304,7 @@ function Register() {
           "Registration successful!"
         );
 
+        setErrors({});
 
         setFormData({
           name: "",
@@ -144,9 +360,9 @@ function Register() {
       <div className="auth-container">
 
 
-        {/* =========================
-            LEFT BRAND PANEL
-        ========================= */}
+        {/* =================================
+            BRAND PANEL
+        ================================= */}
 
         <div className="auth-brand-panel">
 
@@ -197,14 +413,16 @@ function Register() {
         </div>
 
 
-        {/* =========================
-            REGISTER PANEL
-        ========================= */}
+        {/* =================================
+            FORM PANEL
+        ================================= */}
 
         <div className="auth-form-panel">
 
           <div className="auth-form-wrapper">
 
+
+            {/* MOBILE LOGO */}
 
             <div className="auth-mobile-logo">
 
@@ -218,6 +436,8 @@ function Register() {
 
             </div>
 
+
+            {/* HEADING */}
 
             <div className="auth-heading">
 
@@ -236,12 +456,12 @@ function Register() {
             </div>
 
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
 
 
-              {/* =========================
-                  FULL NAME
-              ========================= */}
+              {/* =================================
+                  NAME
+              ================================= */}
 
               <div className="auth-input-group">
 
@@ -251,7 +471,11 @@ function Register() {
                     : "Full Name"}
                 </label>
 
-                <div className="auth-input-wrapper">
+                <div
+                  className={`auth-input-wrapper ${
+                    errors.name ? "input-error" : ""
+                  }`}
+                >
 
                   <span className="auth-input-icon">
                     👤
@@ -267,17 +491,24 @@ function Register() {
                     }
                     value={formData.name}
                     onChange={handleChange}
-                    required
+                    maxLength="50"
+                    autoComplete="name"
                   />
 
                 </div>
 
+                {errors.name && (
+                  <small className="field-error">
+                    ⚠ {errors.name}
+                  </small>
+                )}
+
               </div>
 
 
-              {/* =========================
+              {/* =================================
                   EMAIL
-              ========================= */}
+              ================================= */}
 
               <div className="auth-input-group">
 
@@ -285,7 +516,11 @@ function Register() {
                   Email Address
                 </label>
 
-                <div className="auth-input-wrapper">
+                <div
+                  className={`auth-input-wrapper ${
+                    errors.email ? "input-error" : ""
+                  }`}
+                >
 
                   <span className="auth-input-icon">
                     ✉️
@@ -297,17 +532,23 @@ function Register() {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
+                    autoComplete="email"
                   />
 
                 </div>
 
+                {errors.email && (
+                  <small className="field-error">
+                    ⚠ {errors.email}
+                  </small>
+                )}
+
               </div>
 
 
-              {/* =========================
+              {/* =================================
                   PASSWORD
-              ========================= */}
+              ================================= */}
 
               <div className="auth-input-group">
 
@@ -315,7 +556,11 @@ function Register() {
                   Password
                 </label>
 
-                <div className="auth-input-wrapper">
+                <div
+                  className={`auth-input-wrapper ${
+                    errors.password ? "input-error" : ""
+                  }`}
+                >
 
                   <span className="auth-input-icon">
                     🔒
@@ -328,11 +573,11 @@ function Register() {
                         : "password"
                     }
                     name="password"
-                    placeholder="Create a password"
-                    minLength="6"
+                    placeholder="Create a strong password"
                     value={formData.password}
                     onChange={handleChange}
-                    required
+                    maxLength="50"
+                    autoComplete="new-password"
                   />
 
                   <button
@@ -352,15 +597,21 @@ function Register() {
                 </div>
 
                 <small className="password-hint">
-                  Minimum 6 characters
+                  8+ characters • uppercase • lowercase • number • special character
                 </small>
+
+                {errors.password && (
+                  <small className="field-error">
+                    ⚠ {errors.password}
+                  </small>
+                )}
 
               </div>
 
 
-              {/* =========================
+              {/* =================================
                   ROLE
-              ========================= */}
+              ================================= */}
 
               <div className="auth-input-group">
 
@@ -371,9 +622,7 @@ function Register() {
                 <div className="role-selection">
 
 
-                  {/* =========================
-                      DONOR
-                  ========================= */}
+                  {/* DONOR */}
 
                   <button
                     type="button"
@@ -404,19 +653,15 @@ function Register() {
                     </span>
 
                     <span className="role-check">
-
                       {formData.role === "DONOR"
                         ? "✓"
                         : ""}
-
                     </span>
 
                   </button>
 
 
-                  {/* =========================
-                      NGO
-                  ========================= */}
+                  {/* NGO */}
 
                   <button
                     type="button"
@@ -447,11 +692,9 @@ function Register() {
                     </span>
 
                     <span className="role-check">
-
                       {formData.role === "NGO"
                         ? "✓"
                         : ""}
-
                     </span>
 
                   </button>
@@ -461,9 +704,9 @@ function Register() {
               </div>
 
 
-              {/* =================================================
+              {/* =================================
                   DONOR INFORMATION
-              ================================================= */}
+              ================================= */}
 
               {formData.role === "DONOR" && (
 
@@ -477,7 +720,11 @@ function Register() {
                       Phone Number
                     </label>
 
-                    <div className="auth-input-wrapper">
+                    <div
+                      className={`auth-input-wrapper ${
+                        errors.phone ? "input-error" : ""
+                      }`}
+                    >
 
                       <span className="auth-input-icon">
                         📞
@@ -486,13 +733,21 @@ function Register() {
                       <input
                         type="tel"
                         name="phone"
-                        placeholder="Enter your phone number"
+                        placeholder="10-digit mobile number"
                         value={formData.phone}
                         onChange={handleChange}
-                        required
+                        inputMode="numeric"
+                        maxLength="10"
+                        autoComplete="tel"
                       />
 
                     </div>
+
+                    {errors.phone && (
+                      <small className="field-error">
+                        ⚠ {errors.phone}
+                      </small>
+                    )}
 
                   </div>
 
@@ -505,7 +760,11 @@ function Register() {
                       Address
                     </label>
 
-                    <div className="auth-input-wrapper">
+                    <div
+                      className={`auth-input-wrapper ${
+                        errors.address ? "input-error" : ""
+                      }`}
+                    >
 
                       <span className="auth-input-icon">
                         📍
@@ -517,10 +776,17 @@ function Register() {
                         placeholder="Enter your address"
                         value={formData.address}
                         onChange={handleChange}
-                        required
+                        maxLength="200"
+                        autoComplete="street-address"
                       />
 
                     </div>
+
+                    {errors.address && (
+                      <small className="field-error">
+                        ⚠ {errors.address}
+                      </small>
+                    )}
 
                   </div>
 
@@ -529,9 +795,9 @@ function Register() {
               )}
 
 
-              {/* =================================================
+              {/* =================================
                   NGO INFORMATION
-              ================================================= */}
+              ================================= */}
 
               {formData.role === "NGO" && (
 
@@ -545,7 +811,13 @@ function Register() {
                       Organization Name
                     </label>
 
-                    <div className="auth-input-wrapper">
+                    <div
+                      className={`auth-input-wrapper ${
+                        errors.organizationName
+                          ? "input-error"
+                          : ""
+                      }`}
+                    >
 
                       <span className="auth-input-icon">
                         🏢
@@ -557,10 +829,16 @@ function Register() {
                         placeholder="Enter organization name"
                         value={formData.organizationName}
                         onChange={handleChange}
-                        required
+                        maxLength="100"
                       />
 
                     </div>
+
+                    {errors.organizationName && (
+                      <small className="field-error">
+                        ⚠ {errors.organizationName}
+                      </small>
+                    )}
 
                   </div>
 
@@ -573,7 +851,13 @@ function Register() {
                       Organization Type
                     </label>
 
-                    <div className="auth-input-wrapper">
+                    <div
+                      className={`auth-input-wrapper ${
+                        errors.organizationType
+                          ? "input-error"
+                          : ""
+                      }`}
+                    >
 
                       <span className="auth-input-icon">
                         🏛️
@@ -583,7 +867,6 @@ function Register() {
                         name="organizationType"
                         value={formData.organizationType}
                         onChange={handleChange}
-                        required
                       >
 
                         <option value="">
@@ -626,10 +909,16 @@ function Register() {
 
                     </div>
 
+                    {errors.organizationType && (
+                      <small className="field-error">
+                        ⚠ {errors.organizationType}
+                      </small>
+                    )}
+
                   </div>
 
 
-                  {/* PHONE */}
+                  {/* NGO PHONE */}
 
                   <div className="auth-input-group">
 
@@ -637,7 +926,11 @@ function Register() {
                       Organization Phone Number
                     </label>
 
-                    <div className="auth-input-wrapper">
+                    <div
+                      className={`auth-input-wrapper ${
+                        errors.phone ? "input-error" : ""
+                      }`}
+                    >
 
                       <span className="auth-input-icon">
                         📞
@@ -646,18 +939,26 @@ function Register() {
                       <input
                         type="tel"
                         name="phone"
-                        placeholder="Enter organization phone number"
+                        placeholder="10-digit mobile number"
                         value={formData.phone}
                         onChange={handleChange}
-                        required
+                        inputMode="numeric"
+                        maxLength="10"
+                        autoComplete="tel"
                       />
 
                     </div>
 
+                    {errors.phone && (
+                      <small className="field-error">
+                        ⚠ {errors.phone}
+                      </small>
+                    )}
+
                   </div>
 
 
-                  {/* ADDRESS */}
+                  {/* NGO ADDRESS */}
 
                   <div className="auth-input-group">
 
@@ -665,7 +966,11 @@ function Register() {
                       Organization Address
                     </label>
 
-                    <div className="auth-input-wrapper">
+                    <div
+                      className={`auth-input-wrapper ${
+                        errors.address ? "input-error" : ""
+                      }`}
+                    >
 
                       <span className="auth-input-icon">
                         📍
@@ -677,10 +982,16 @@ function Register() {
                         placeholder="Enter organization address"
                         value={formData.address}
                         onChange={handleChange}
-                        required
+                        maxLength="200"
                       />
 
                     </div>
+
+                    {errors.address && (
+                      <small className="field-error">
+                        ⚠ {errors.address}
+                      </small>
+                    )}
 
                   </div>
 
@@ -689,9 +1000,9 @@ function Register() {
               )}
 
 
-              {/* =========================
+              {/* =================================
                   MESSAGE
-              ========================= */}
+              ================================= */}
 
               {message && (
 
@@ -709,9 +1020,9 @@ function Register() {
               )}
 
 
-              {/* =========================
+              {/* =================================
                   SUBMIT
-              ========================= */}
+              ================================= */}
 
               <button
                 type="submit"
@@ -740,9 +1051,7 @@ function Register() {
             </form>
 
 
-            {/* =========================
-                LOGIN
-            ========================= */}
+            {/* LOGIN */}
 
             <div className="auth-switch">
 
@@ -770,7 +1079,6 @@ function Register() {
     </div>
 
   );
-
 }
 
 export default Register;
