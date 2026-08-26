@@ -1,6 +1,7 @@
 package com.foodwaste.repository;
 
 import com.foodwaste.model.Donation;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,14 +14,17 @@ public class DonationRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public DonationRepository(JdbcTemplate jdbcTemplate) {
+
+    public DonationRepository(
+            JdbcTemplate jdbcTemplate) {
+
         this.jdbcTemplate = jdbcTemplate;
     }
 
 
-    // ==========================================
+    // =========================================================
     // GET ALL AVAILABLE DONATIONS
-    // ==========================================
+    // =========================================================
 
     public List<Donation> getAllDonations() {
 
@@ -44,11 +48,41 @@ public class DonationRepository {
     }
 
 
-    // ==========================================
-    // ADD DONATION
-    // ==========================================
+    // =========================================================
+    // GET SINGLE DONATION BY ID
+    // =========================================================
 
-    public int addDonation(Donation donation) {
+    public Donation getDonationById(int id) {
+
+        String sql = """
+                SELECT *
+                FROM donations
+                WHERE id = ?
+                """;
+
+        List<Donation> donations =
+                jdbcTemplate.query(
+                        sql,
+                        (rs, rowNum) ->
+                                mapDonation(rs),
+                        id
+                );
+
+        if (donations.isEmpty()) {
+
+            return null;
+        }
+
+        return donations.get(0);
+    }
+
+
+    // =========================================================
+    // ADD DONATION
+    // =========================================================
+
+    public int addDonation(
+            Donation donation) {
 
         String sql = """
                 INSERT INTO donations
@@ -87,11 +121,12 @@ public class DonationRepository {
     }
 
 
-    // ==========================================
-    // MY DONATIONS
-    // ==========================================
+    // =========================================================
+    // GET MY DONATIONS
+    // =========================================================
 
-    public List<Donation> getDonationsByDonor(int donorId) {
+    public List<Donation> getDonationsByDonor(
+            int donorId) {
 
         String sql = """
                 SELECT *
@@ -102,17 +137,19 @@ public class DonationRepository {
 
         return jdbcTemplate.query(
                 sql,
-                (rs, rowNum) -> mapDonation(rs),
+                (rs, rowNum) ->
+                        mapDonation(rs),
                 donorId
         );
     }
 
 
-    // ==========================================
-    // MY CLAIMS
-    // ==========================================
+    // =========================================================
+    // GET MY CLAIMS
+    // =========================================================
 
-    public List<Donation> getClaimsByUser(int userId) {
+    public List<Donation> getClaimsByUser(
+            int userId) {
 
         String sql = """
                 SELECT *
@@ -123,15 +160,16 @@ public class DonationRepository {
 
         return jdbcTemplate.query(
                 sql,
-                (rs, rowNum) -> mapDonation(rs),
+                (rs, rowNum) ->
+                        mapDonation(rs),
                 userId
         );
     }
 
 
-    // ==========================================
+    // =========================================================
     // CLAIM DONATION
-    // ==========================================
+    // =========================================================
 
     public int claimDonation(
             int donationId,
@@ -156,9 +194,9 @@ public class DonationRepository {
     }
 
 
-    // ==========================================
+    // =========================================================
     // UPDATE DONATION STATUS
-    // ==========================================
+    // =========================================================
 
     public int updateStatus(
             int id,
@@ -181,16 +219,14 @@ public class DonationRepository {
     }
 
 
-    // ==========================================
+    // =========================================================
     // UPDATE PICKUP STATUS
-    // ==========================================
+    // =========================================================
 
     public int updatePickupStatus(
             int donationId,
             int userId,
             String newStatus) {
-
-        // Get current pickup status
 
         String selectSql = """
                 SELECT pickup_status
@@ -208,11 +244,8 @@ public class DonationRepository {
                         userId
                 );
 
-
-        // Donation doesn't exist
-        // or user is not claimant
-
         if (currentStatuses.isEmpty()) {
+
             return 0;
         }
 
@@ -221,34 +254,64 @@ public class DonationRepository {
                 currentStatuses.get(0);
 
 
-        // ======================================
-        // CHECK VALID STATUS
-        // ======================================
+        // =====================================================
+        // VALIDATE NEW PICKUP STATUS
+        // =====================================================
 
         if (!isValidPickupStatus(newStatus)) {
+
             return 0;
         }
 
 
-        // ======================================
-        // CHECK STATUS TRANSITION
-        // ======================================
+        // =====================================================
+        // VALIDATE STATUS TRANSITION
+        // =====================================================
 
         if (!isValidStatusTransition(
                 currentStatus,
-                newStatus)) {
+                newStatus
+        )) {
 
             return 0;
         }
 
 
-        // ======================================
-        // UPDATE STATUS
-        // ======================================
+        // =====================================================
+        // CONVERT PICKUP STATUS TO DONATION STATUS
+        // =====================================================
+
+        String donationStatus;
+
+        switch (newStatus) {
+
+            case "PICKED_UP":
+                donationStatus = "PICKED_UP";
+                break;
+
+            case "COMPLETED":
+                donationStatus = "COMPLETED";
+                break;
+
+            case "PICKUP_PENDING":
+            case "PICKUP_STARTED":
+            case "NOT_STARTED":
+                donationStatus = "CLAIMED";
+                break;
+
+            default:
+                return 0;
+        }
+
+
+        // =====================================================
+        // UPDATE BOTH STATUSES
+        // =====================================================
 
         String updateSql = """
                 UPDATE donations
-                SET pickup_status = ?
+                SET pickup_status = ?,
+                    status = ?
                 WHERE id = ?
                 AND claimed_by = ?
                 """;
@@ -256,38 +319,42 @@ public class DonationRepository {
         return jdbcTemplate.update(
                 updateSql,
                 newStatus,
+                donationStatus,
                 donationId,
                 userId
         );
     }
 
-    // ==========================================
-// GET ALL DONATIONS FOR ADMIN
-// ==========================================
+
+    // =========================================================
+    // GET ALL DONATIONS FOR ADMIN
+    // =========================================================
 
     public List<Donation> getAllDonationsForAdmin() {
 
         String sql = """
-            SELECT *
-            FROM donations
-            ORDER BY id DESC
-            """;
+                SELECT *
+                FROM donations
+                ORDER BY id DESC
+                """;
 
         return jdbcTemplate.query(
                 sql,
-                (rs, rowNum) -> mapDonation(rs)
+                (rs, rowNum) ->
+                        mapDonation(rs)
         );
     }
 
 
-    // ==========================================
+    // =========================================================
     // VALID PICKUP STATUS
-    // ==========================================
+    // =========================================================
 
     private boolean isValidPickupStatus(
             String status) {
 
         if (status == null) {
+
             return false;
         }
 
@@ -299,45 +366,44 @@ public class DonationRepository {
     }
 
 
-    // ==========================================
+    // =========================================================
     // VALID STATUS TRANSITION
-    // ==========================================
+    // =========================================================
 
     private boolean isValidStatusTransition(
             String current,
             String next) {
 
-        if (current == null || next == null) {
+        if (current == null ||
+                next == null) {
+
             return false;
         }
 
-
         return switch (current) {
 
-            // When donation is first claimed
             case "NOT_STARTED" ->
-                    next.equals("PICKUP_PENDING");
+                    next.equals(
+                            "PICKUP_PENDING"
+                    );
 
-
-            // NGO can mark food as picked up
             case "PICKUP_PENDING" ->
-                    next.equals("PICKED_UP");
+                    next.equals(
+                            "PICKED_UP"
+                    );
 
-
-            // Optional intermediate state
             case "PICKUP_STARTED" ->
-                    next.equals("PICKED_UP");
+                    next.equals(
+                            "PICKED_UP"
+                    );
 
-
-            // After pickup
             case "PICKED_UP" ->
-                    next.equals("COMPLETED");
+                    next.equals(
+                            "COMPLETED"
+                    );
 
-
-            // Completed cannot be changed
             case "COMPLETED" ->
                     false;
-
 
             default ->
                     false;
@@ -345,36 +411,35 @@ public class DonationRepository {
     }
 
 
-    // ==========================================
+    // =========================================================
     // DELETE DONATION
-    // ==========================================
-
+    // =========================================================
 
     public int deleteDonation(int id) {
 
         String sql = """
-            DELETE FROM donations
-            WHERE id = ?
-            """;
+                DELETE FROM donations
+                WHERE id = ?
+                """;
 
-        return jdbcTemplate.update(sql, id);
+        return jdbcTemplate.update(
+                sql,
+                id
+        );
     }
 
 
-    // ==========================================
-    // MAP DATABASE → DONATION
-    // ==========================================
+    // =========================================================
+    // MAP DATABASE RESULT TO DONATION OBJECT
+    // =========================================================
 
     private Donation mapDonation(
-            ResultSet rs) throws SQLException {
+            ResultSet rs)
+            throws SQLException {
 
         Donation donation =
                 new Donation();
 
-
-        // ======================================
-        // BASIC DETAILS
-        // ======================================
 
         donation.setId(
                 rs.getInt("id")
@@ -431,9 +496,9 @@ public class DonationRepository {
         );
 
 
-        // ======================================
+        // =====================================================
         // DONOR ID
-        // ======================================
+        // =====================================================
 
         int donorId =
                 rs.getInt("donor_id");
@@ -446,9 +511,9 @@ public class DonationRepository {
         }
 
 
-        // ======================================
+        // =====================================================
         // CLAIMED BY
-        // ======================================
+        // =====================================================
 
         int claimedBy =
                 rs.getInt("claimed_by");
@@ -461,9 +526,9 @@ public class DonationRepository {
         }
 
 
-        // ======================================
+        // =====================================================
         // PICKUP STATUS
-        // ======================================
+        // =====================================================
 
         donation.setPickupStatus(
                 rs.getString("pickup_status")

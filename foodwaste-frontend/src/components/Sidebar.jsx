@@ -282,17 +282,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 {userRole === "NGO" ? (
 
   <>
-    {/* Contact Donor */}
-
-    <NavLink
-      to="/contact-donor"
-      onClick={closeSidebar}
-      className={navClass}
-    >
-      <span>🤝</span>
-      Contact Donor
-    </NavLink>
-
 
     {/* Contact Admin + Feedback */}
 

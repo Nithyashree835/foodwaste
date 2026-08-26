@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Donations.css";
 
 function Donations() {
 
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [requestingId, setRequestingId] = useState(null);
+
+  const navigate = useNavigate();
 
   const userId = Number(
     localStorage.getItem("userId")
@@ -26,7 +28,7 @@ function Donations() {
       setLoading(true);
 
       const response = await fetch(
-        "https://foodwaste-backend-btuy.onrender.com/api/donations"
+        "https://foodrescue-backend.onrender.com/api/donations"
       );
 
       if (!response.ok) {
@@ -76,151 +78,12 @@ function Donations() {
 
 
   // ==========================================
-  // REQUEST DONATION
+  // OPEN DONATION DETAILS
   // ==========================================
 
-  const requestDonation = async (
-    donationId,
-    quantity
-  ) => {
+  const openDonationDetails = (donationId) => {
 
-    if (!userId || userId <= 0) {
-
-      alert(
-        "Please login first"
-      );
-
-      return;
-
-    }
-
-
-    if (userRole !== "NGO") {
-
-      alert(
-        "Only NGO users can request food donations."
-      );
-
-      return;
-
-    }
-
-
-    if (!donationId) {
-
-      alert(
-        "Invalid donation"
-      );
-
-      return;
-
-    }
-
-
-    if (!quantity || quantity <= 0) {
-
-      alert(
-        "Invalid donation quantity"
-      );
-
-      return;
-
-    }
-
-
-    try {
-
-      setRequestingId(
-        donationId
-      );
-
-
-      const requestData = {
-
-        donationId: Number(
-          donationId
-        ),
-
-        ngoId: Number(
-          userId
-        ),
-
-        requestedQuantity: Number(
-          quantity
-        )
-
-      };
-
-
-      console.log(
-        "Sending request:",
-        requestData
-      );
-
-
-      const response = await fetch(
-        "https://foodwaste-backend-btuy.onrender.com/api/requests",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify(
-            requestData
-          )
-        }
-      );
-
-
-      const result =
-        await response.text();
-
-
-      console.log(
-        "Backend response:",
-        result
-      );
-
-
-      if (response.ok) {
-
-        alert(
-          result ||
-          "Donation request submitted successfully"
-        );
-
-        fetchDonations();
-
-      } else {
-
-        alert(
-          result ||
-          "Failed to submit donation request"
-        );
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Request donation error:",
-        error
-      );
-
-      alert(
-        "Cannot connect to Spring Boot backend"
-      );
-
-    } finally {
-
-      setRequestingId(
-        null
-      );
-
-    }
+    navigate(`/donation/${donationId}`);
 
   };
 
@@ -272,7 +135,8 @@ function Donations() {
             </h1>
 
             <p>
-              Discover surplus food available for your NGO.
+              Discover surplus food available
+              for your NGO.
             </p>
 
           </div>
@@ -290,8 +154,6 @@ function Donations() {
 
         <div className="donations-stats">
 
-
-          {/* AVAILABLE */}
 
           <div className="donations-stat">
 
@@ -314,8 +176,6 @@ function Donations() {
           </div>
 
 
-          {/* NGO */}
-
           <div className="donations-stat">
 
             <div className="donations-stat-icon">
@@ -336,8 +196,6 @@ function Donations() {
 
           </div>
 
-
-          {/* FOOD RESCUE */}
 
           <div className="donations-stat">
 
@@ -370,8 +228,8 @@ function Donations() {
 
           <div className="donations-warning">
 
-            🔒 Only registered NGO accounts can request
-            food donations.
+            🔒 Only registered NGO accounts can
+            request food donations.
 
           </div>
 
@@ -395,8 +253,8 @@ function Donations() {
             </h3>
 
             <p>
-              New food donations will appear here when
-              donors share them.
+              New food donations will appear here
+              when donors share them.
             </p>
 
           </div>
@@ -416,6 +274,14 @@ function Donations() {
                 <div
                   className="donations-card"
                   key={donation.id}
+                  onClick={() =>
+                    openDonationDetails(
+                      donation.id
+                    )
+                  }
+                  style={{
+                    cursor: "pointer"
+                  }}
                 >
 
 
@@ -512,7 +378,7 @@ function Donations() {
                       </div>
 
 
-                      {/* PREPARED DATE */}
+                      {/* PREPARED */}
 
                       <div className="donations-detail">
 
@@ -533,7 +399,7 @@ function Donations() {
                       </div>
 
 
-                      {/* EXPIRY DATE */}
+                      {/* EXPIRY */}
 
                       <div className="donations-detail">
 
@@ -554,7 +420,7 @@ function Donations() {
                       </div>
 
 
-                      {/* PICKUP LOCATION */}
+                      {/* PICKUP */}
 
                       <div className="donations-detail">
 
@@ -578,9 +444,7 @@ function Donations() {
                     </div>
 
 
-                    {/* =================================
-                        DESCRIPTION
-                    ================================= */}
+                    {/* DESCRIPTION */}
 
                     {donation.description && (
 
@@ -593,81 +457,27 @@ function Donations() {
                     )}
 
 
- {/* =================================
-    REQUEST QUANTITY
-================================= */}
+                    {/* =================================
+                        VIEW DETAILS
+                    ================================= */}
 
-{userRole === "NGO" && (
+                    <button
+                      type="button"
+                      className="donations-button"
+                      onClick={(event) => {
 
-  <div className="donations-request-box">
+                        event.stopPropagation();
 
-    <label>
-      Request Quantity
-    </label>
+                        openDonationDetails(
+                          donation.id
+                        );
 
-    <input
-      type="number"
-      min="1"
-      max={donation.quantity}
-      defaultValue={donation.quantity}
-      id={`quantity-${donation.id}`}
-      className="donations-quantity-input"
-    />
+                      }}
+                    >
 
-    <small>
-      Maximum: {donation.quantity} {donation.unit}
-    </small>
+                      🔍 View Full Details →
 
-
-    <button
-      className="donations-button"
-
-      disabled={
-        requestingId === donation.id
-      }
-
-      onClick={() => {
-
-        const input =
-          document.getElementById(
-            `quantity-${donation.id}`
-          );
-
-        const quantity =
-          Number(input.value);
-
-        if (
-          !quantity ||
-          quantity <= 0 ||
-          quantity > donation.quantity
-        ) {
-
-          alert(
-            `Please enter a quantity between 1 and ${donation.quantity}`
-          );
-
-          return;
-        }
-
-        requestDonation(
-          donation.id,
-          quantity
-        );
-
-      }}
-    >
-
-      {requestingId === donation.id
-        ? "⏳ Sending Request..."
-        : "📩 Request This Food"}
-
-    </button>
-
-  </div>
-
-
-
-                    )}
+                    </button>
 
                   </div>
 

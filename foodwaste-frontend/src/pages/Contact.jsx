@@ -100,7 +100,7 @@ function Contact() {
 
 
       const response = await fetch(
-        "https://foodwaste-backend-btuy.onrender.com/api/contact",
+        "https://foodrescue-backend.onrender.com/api/contact",
         {
           method: "POST",
 

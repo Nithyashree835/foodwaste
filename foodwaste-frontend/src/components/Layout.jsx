@@ -16,14 +16,17 @@ function Layout({ children }) {
 
   const location = useLocation();
 
+
   // ==========================================
   // USER ROLE CHECKS
   // ==========================================
 
-  const isDonor = userRole === "DONOR";
+  const isDonor =
+    userRole === "DONOR";
 
   const isDonorDashboard =
-    isDonor && location.pathname === "/dashboard";
+    isDonor &&
+    location.pathname === "/dashboard";
 
 
   // ==========================================
@@ -36,9 +39,13 @@ function Layout({ children }) {
       sidebarOpen &&
       window.innerWidth <= 768
     ) {
+
       document.body.style.overflow = "hidden";
+
     } else {
+
       document.body.style.overflow = "";
+
     }
 
     return () => {
@@ -60,6 +67,7 @@ function Layout({ children }) {
     localStorage.removeItem("userRole");
 
     window.location.href = "/login";
+
   };
 
 
@@ -69,6 +77,7 @@ function Layout({ children }) {
 
   const getNavigationItems = () => {
 
+
     // ==========================================
     // ADMIN
     // ==========================================
@@ -76,32 +85,39 @@ function Layout({ children }) {
     if (userRole === "ADMIN") {
 
       return [
+
         {
           path: "/admin",
           icon: "🛡️",
-          label: "Dashboard"
+          label: "Home"
         },
+
         {
           path: "/admin/users",
           icon: "👥",
           label: "Users"
         },
+
         {
           path: "/admin/donations",
           icon: "🍱",
-          label: "Donations"
+          label: "Food"
         },
+
         {
           path: "/admin/requests",
           icon: "📩",
           label: "Requests"
         },
+
         {
           path: "/admin/messages",
           icon: "💬",
           label: "Messages"
         }
+
       ];
+
     }
 
 
@@ -112,37 +128,45 @@ function Layout({ children }) {
     if (userRole === "NGO") {
 
       return [
+
         {
           path: "/ngo-dashboard",
           icon: "🏠",
           label: "Home"
         },
+
         {
           path: "/donations",
           icon: "🍱",
           label: "Food"
         },
+
         {
           path: "/my-claims",
           icon: "❤️",
           label: "Claims"
         },
+
         {
           path: "/my-requests",
           icon: "📩",
           label: "Requests"
         },
+
         {
-          path: "/contact-donor",
-          icon: "🤝",
+          path: "/contact",
+          icon: "📞",
           label: "Contact"
         },
+
         {
           path: "/profile",
           icon: "👤",
           label: "Profile"
         }
+
       ];
+
     }
 
 
@@ -151,37 +175,51 @@ function Layout({ children }) {
     // ==========================================
 
     return [
+
       {
         path: "/dashboard",
         icon: "🏠",
         label: "Home"
       },
+
       {
         path: "/donations",
         icon: "🍱",
         label: "Food"
       },
+
       {
         path: "/add-donation",
         icon: "➕",
         label: "Donate"
       },
+
       {
         path: "/my-donations",
         icon: "📦",
         label: "My Food"
       },
+
       {
         path: "/donation-requests",
         icon: "📩",
         label: "Requests"
       },
+
       {
         path: "/profile",
         icon: "👤",
         label: "Profile"
+      },
+
+      {
+        path: "/contact",
+        icon: "📞",
+        label: "Contact"
       }
+
     ];
+
   };
 
 
@@ -213,6 +251,7 @@ function Layout({ children }) {
       ====================================== */}
 
       <header className="mobile-navbar">
+
 
         {/* BRAND */}
 
@@ -345,7 +384,9 @@ function Layout({ children }) {
       </nav>
 
     </div>
+
   );
+
 }
 
 export default Layout;

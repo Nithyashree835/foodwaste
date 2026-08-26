@@ -40,7 +40,7 @@ function NGODashboard() {
 
         // Fetch all donations
         const donationsResponse = await fetch(
-          "https://foodwaste-backend-btuy.onrender.com/api/donations"
+          "https://foodrescue-backend.onrender.com/api/donations"
         );
 
         if (!donationsResponse.ok) {
@@ -55,7 +55,7 @@ function NGODashboard() {
 
         // Fetch NGO claims
         const claimsResponse = await fetch(
-          `https://foodwaste-backend-btuy.onrender.com/api/donations/claims/${userId}`
+          `https://foodrescue-backend.onrender.com/api/donations/claims/${userId}`
         );
 
         if (!claimsResponse.ok) {

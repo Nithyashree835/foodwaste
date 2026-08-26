@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -9,8 +10,14 @@ function DonationDetails() {
   const [donation, setDonation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [requesting, setRequesting] = useState(false);
 
-  const userId = localStorage.getItem("userId");
+  const userId = Number(
+    localStorage.getItem("userId")
+  );
+
+  const userRole =
+    localStorage.getItem("userRole");
 
 
   // =========================================================
@@ -21,8 +28,10 @@ function DonationDetails() {
 
     try {
 
+      setLoading(true);
+
       const response = await fetch(
-        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}`
+        `https://foodrescue-backend.onrender.com/api/donations/${id}`
       );
 
       if (!response.ok) {
@@ -35,7 +44,10 @@ function DonationDetails() {
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "Donation details error:",
+        error
+      );
 
       setMessage(
         "Cannot load donation details"
@@ -57,12 +69,12 @@ function DonationDetails() {
 
 
   // =========================================================
-  // CLAIM
+  // REQUEST DONATION
   // =========================================================
 
-  const claimDonation = async () => {
+  const requestDonation = async () => {
 
-    if (!userId) {
+    if (!userId || userId <= 0) {
 
       alert("Please login first");
 
@@ -72,37 +84,132 @@ function DonationDetails() {
     }
 
 
+    if (userRole !== "NGO") {
+
+      alert(
+        "Only NGO users can request food donations."
+      );
+
+      return;
+    }
+
+
+    if (!donation) {
+      return;
+    }
+
+
     try {
 
+      setRequesting(true);
+
+
+      const requestData = {
+
+        donationId: Number(
+          donation.id
+        ),
+
+        ngoId: Number(
+          userId
+        ),
+
+        requestedQuantity: Number(
+          donation.quantity
+        )
+
+      };
+
+
       const response = await fetch(
-        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}/claim?userId=${userId}`,
+        "https://foodrescue-backend.onrender.com/api/requests",
         {
-          method: "PUT"
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify(
+            requestData
+          )
         }
       );
 
-      const result = await response.text();
+
+      const result =
+        await response.text();
+
 
       if (response.ok) {
 
-        alert(result);
+        alert(
+          result ||
+          "Donation request submitted successfully"
+        );
 
         fetchDonation();
 
       } else {
 
-        alert(result);
+        alert(
+          result ||
+          "Failed to submit donation request"
+        );
 
       }
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "Request donation error:",
+        error
+      );
 
       alert(
         "Cannot connect to Spring Boot backend"
       );
+
+    } finally {
+
+      setRequesting(false);
+
     }
+
+  };
+
+
+  // =========================================================
+  // CONTACT DONOR
+  // =========================================================
+
+  const contactDonor = () => {
+
+    if (!userId || userId <= 0) {
+
+      alert("Please login first");
+
+      navigate("/login");
+
+      return;
+    }
+
+
+    if (userRole !== "NGO") {
+
+      alert(
+        "Only NGO users can contact donors."
+      );
+
+      return;
+    }
+
+
+    navigate(
+      `/contact-donor?donationId=${donation.id}&donorId=${donation.donorId}`
+    );
+
   };
 
 
@@ -113,7 +220,9 @@ function DonationDetails() {
   const markPickedUp = async () => {
 
     if (!userId) {
+
       alert("Please login first");
+
       return;
     }
 
@@ -121,13 +230,16 @@ function DonationDetails() {
     try {
 
       const response = await fetch(
-        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}/pickup?userId=${userId}`,
+        `https://foodrescue-backend.onrender.com/api/donations/${id}/pickup?userId=${userId}`,
         {
           method: "PUT"
         }
       );
 
-      const result = await response.text();
+
+      const result =
+        await response.text();
+
 
       if (response.ok) {
 
@@ -138,6 +250,7 @@ function DonationDetails() {
       } else {
 
         alert(result);
+
       }
 
     } catch (error) {
@@ -147,7 +260,9 @@ function DonationDetails() {
       alert(
         "Cannot connect to Spring Boot backend"
       );
+
     }
+
   };
 
 
@@ -158,7 +273,9 @@ function DonationDetails() {
   const markCompleted = async () => {
 
     if (!userId) {
+
       alert("Please login first");
+
       return;
     }
 
@@ -166,13 +283,16 @@ function DonationDetails() {
     try {
 
       const response = await fetch(
-        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}/complete?userId=${userId}`,
+        `https://foodrescue-backend.onrender.com/api/donations/${id}/complete?userId=${userId}`,
         {
           method: "PUT"
         }
       );
 
-      const result = await response.text();
+
+      const result =
+        await response.text();
+
 
       if (response.ok) {
 
@@ -183,6 +303,7 @@ function DonationDetails() {
       } else {
 
         alert(result);
+
       }
 
     } catch (error) {
@@ -192,7 +313,9 @@ function DonationDetails() {
       alert(
         "Cannot connect to Spring Boot backend"
       );
+
     }
+
   };
 
 
@@ -203,6 +326,7 @@ function DonationDetails() {
   if (loading) {
 
     return (
+
       <div className="container text-center py-5">
 
         <div className="spinner-border text-success"></div>
@@ -212,7 +336,9 @@ function DonationDetails() {
         </p>
 
       </div>
+
     );
+
   }
 
 
@@ -223,6 +349,7 @@ function DonationDetails() {
   if (!donation) {
 
     return (
+
       <div className="container text-center py-5">
 
         <h2>
@@ -241,7 +368,9 @@ function DonationDetails() {
         </Link>
 
       </div>
+
     );
+
   }
 
 
@@ -249,7 +378,8 @@ function DonationDetails() {
   // STATUS
   // =========================================================
 
-  const status = donation.status;
+  const status =
+    donation.status;
 
 
   // =========================================================
@@ -274,11 +404,11 @@ function DonationDetails() {
 
           <div className="card border-0 shadow-sm">
 
-            {/* IMAGE / ICON */}
-
             <div
               className="bg-light text-center py-5"
-              style={{ fontSize: "90px" }}
+              style={{
+                fontSize: "90px"
+              }}
             >
               🍲
             </div>
@@ -286,14 +416,12 @@ function DonationDetails() {
 
             <div className="card-body p-4">
 
-
-              {/* TITLE */}
-
               <div className="d-flex justify-content-between align-items-center mb-3">
 
                 <h1 className="fw-bold mb-0">
                   {donation.foodName}
                 </h1>
+
 
                 <span
                   className={
@@ -320,17 +448,20 @@ function DonationDetails() {
               <hr />
 
 
-              {/* INFORMATION */}
+              <h4 className="fw-bold mb-3">
+                Donation Information
+              </h4>
+
 
               <div className="row">
 
                 <div className="col-md-6 mb-3">
 
                   <strong>
-                    Donor
+                    👤 Donor
                   </strong>
 
-                  <p className="text-muted">
+                  <p className="text-muted mb-0">
                     {donation.donorName}
                   </p>
 
@@ -340,10 +471,10 @@ function DonationDetails() {
                 <div className="col-md-6 mb-3">
 
                   <strong>
-                    Quantity
+                    📦 Quantity
                   </strong>
 
-                  <p className="text-muted">
+                  <p className="text-muted mb-0">
                     {donation.quantity}{" "}
                     {donation.unit}
                   </p>
@@ -354,10 +485,10 @@ function DonationDetails() {
                 <div className="col-md-6 mb-3">
 
                   <strong>
-                    Prepared Date
+                    🗓 Prepared Date
                   </strong>
 
-                  <p className="text-muted">
+                  <p className="text-muted mb-0">
                     {donation.preparedDate}
                   </p>
 
@@ -367,10 +498,10 @@ function DonationDetails() {
                 <div className="col-md-6 mb-3">
 
                   <strong>
-                    Expiry Date
+                    ⏰ Expiry Date
                   </strong>
 
-                  <p className="text-muted">
+                  <p className="text-muted mb-0">
                     {donation.expiryDate}
                   </p>
 
@@ -380,11 +511,11 @@ function DonationDetails() {
                 <div className="col-12 mb-3">
 
                   <strong>
-                    Pickup Location
+                    📍 Pickup Location
                   </strong>
 
-                  <p className="text-muted">
-                    📍 {donation.pickupLocation}
+                  <p className="text-muted mb-0">
+                    {donation.pickupLocation}
                   </p>
 
                 </div>
@@ -395,10 +526,10 @@ function DonationDetails() {
                   <div className="col-12 mb-3">
 
                     <strong>
-                      Description
+                      💬 Description
                     </strong>
 
-                    <p className="text-muted">
+                    <p className="text-muted mb-0">
                       {donation.description}
                     </p>
 
@@ -409,10 +540,48 @@ function DonationDetails() {
               </div>
 
 
+              {userRole === "NGO" &&
+                donation.donorId !== userId && (
+
+                <>
+
+                  <hr />
+
+                  <div className="p-3 bg-light rounded">
+
+                    <h4 className="fw-bold">
+                      🤝 Contact Donor
+                    </h4>
+
+                    <p className="text-muted mb-3">
+
+                      Have questions about this
+                      donation? Contact{" "}
+                      <strong>
+                        {donation.donorName}
+                      </strong>{" "}
+                      directly.
+
+                    </p>
+
+
+                    <button
+                      type="button"
+                      className="btn btn-outline-success w-100"
+                      onClick={contactDonor}
+                    >
+                      🤝 Contact {donation.donorName}
+                    </button>
+
+                  </div>
+
+                </>
+
+              )}
+
+
               <hr />
 
-
-              {/* TRACKING */}
 
               <h4 className="fw-bold mb-4">
                 Donation Progress
@@ -529,32 +698,33 @@ function DonationDetails() {
               </div>
 
 
-              {/* ACTIONS */}
-
               <div className="mt-4">
 
-
-                {/* AVAILABLE */}
-
                 {status === "AVAILABLE" &&
-                  donation.donorId !== Number(userId) && (
+                  userRole === "NGO" &&
+                  donation.donorId !== userId && (
 
                   <button
+                    type="button"
                     className="btn btn-success w-100"
-                    onClick={claimDonation}
+                    onClick={requestDonation}
+                    disabled={requesting}
                   >
-                    ❤️ Claim This Donation
+
+                    {requesting
+                      ? "⏳ Sending Request..."
+                      : "📩 Request This Food"}
+
                   </button>
 
                 )}
 
 
-                {/* CLAIMED */}
-
                 {status === "CLAIMED" &&
-                  donation.claimedBy === Number(userId) && (
+                  donation.claimedBy === userId && (
 
                   <button
+                    type="button"
                     className="btn btn-primary w-100"
                     onClick={markPickedUp}
                   >
@@ -564,12 +734,11 @@ function DonationDetails() {
                 )}
 
 
-                {/* PICKED UP */}
-
                 {status === "PICKED_UP" &&
-                  donation.donorId === Number(userId) && (
+                  donation.donorId === userId && (
 
                   <button
+                    type="button"
                     className="btn btn-success w-100"
                     onClick={markCompleted}
                   >
@@ -579,23 +748,20 @@ function DonationDetails() {
                 )}
 
 
-                {/* COMPLETED */}
-
                 {status === "COMPLETED" && (
 
                   <div className="alert alert-success text-center mb-0">
 
-                    ❤️ This donation has been successfully completed.
+                    ❤️ This donation has been
+                    successfully completed.
 
                   </div>
 
                 )}
 
 
-                {/* DONOR VIEW */}
-
                 {status === "CLAIMED" &&
-                  donation.donorId === Number(userId) && (
+                  donation.donorId === userId && (
 
                   <div className="alert alert-info mt-3 mb-0">
 
@@ -607,10 +773,8 @@ function DonationDetails() {
                 )}
 
 
-                {/* CLAIMER VIEW */}
-
                 {status === "PICKED_UP" &&
-                  donation.claimedBy === Number(userId) && (
+                  donation.claimedBy === userId && (
 
                   <div className="alert alert-info mt-3 mb-0">
 
@@ -632,7 +796,9 @@ function DonationDetails() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default DonationDetails;
