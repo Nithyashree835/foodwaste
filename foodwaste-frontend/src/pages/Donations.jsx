@@ -444,17 +444,7 @@ function Donations() {
                     </div>
 
 
-                    {/* DESCRIPTION */}
-
-                    {donation.description && (
-
-                      <div className="donations-description">
-
-                        💬 {donation.description}
-
-                      </div>
-
-                    )}
+                   
 
 
                     {/* =================================
