@@ -22,7 +22,7 @@ function DonationDetails() {
     try {
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/donations/${id}`
+        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}`
       );
 
       if (!response.ok) {
@@ -75,7 +75,7 @@ function DonationDetails() {
     try {
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/donations/${id}/claim?userId=${userId}`,
+        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}/claim?userId=${userId}`,
         {
           method: "PUT"
         }
@@ -121,7 +121,7 @@ function DonationDetails() {
     try {
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/donations/${id}/pickup?userId=${userId}`,
+        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}/pickup?userId=${userId}`,
         {
           method: "PUT"
         }
@@ -166,7 +166,7 @@ function DonationDetails() {
     try {
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/donations/${id}/complete?userId=${userId}`,
+        `https://foodwaste-backend-btuy.onrender.com/api/donations/${id}/complete?userId=${userId}`,
         {
           method: "PUT"
         }

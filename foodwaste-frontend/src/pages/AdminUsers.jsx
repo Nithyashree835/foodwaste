@@ -82,7 +82,7 @@ function AdminUsers() {
     try {
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/admin/users/${userId}`,
+        `https://foodwaste-backend-btuy.onrender.com/api/admin/users/${userId}`,
         {
           method: "DELETE"
         }

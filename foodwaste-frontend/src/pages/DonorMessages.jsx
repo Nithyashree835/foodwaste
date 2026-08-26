@@ -24,7 +24,7 @@ function DonorMessages() {
       setError("");
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/contact/donor/${donorId}`
+        `https://foodwaste-backend-btuy.onrender.com/api/contact/donor/${donorId}`
       );
 
       if (!response.ok) {

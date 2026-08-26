@@ -24,7 +24,7 @@ function Dashboard() {
       try {
 
         const response = await fetch(
-          "http://foodwaste-backend-btuy.onrender.com/api/donations"
+          "https://foodwaste-backend-btuy.onrender.com/api/donations"
         );
 
         if (!response.ok) {

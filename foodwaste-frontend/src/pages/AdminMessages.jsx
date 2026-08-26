@@ -42,7 +42,7 @@ function AdminMessages() {
       setLoading(true);
 
       const response = await fetch(
-        "http://foodwaste-backend-btuy.onrender.com/api/contact/admin"
+        "https://foodwaste-backend-btuy.onrender.com/api/contact/admin"
       );
 
       if (!response.ok) {

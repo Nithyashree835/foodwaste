@@ -27,7 +27,7 @@ function MyClaims() {
       setMessage("");
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/donations/claims/${userId}`
+        `https://foodwaste-backend-btuy.onrender.com/api/donations/claims/${userId}`
       );
 
       if (!response.ok) {
@@ -93,7 +93,7 @@ function MyClaims() {
     try {
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/donations/${donationId}/pickup-status?userId=${userId}`,
+        `https://foodwaste-backend-btuy.onrender.com/api/donations/${donationId}/pickup-status?userId=${userId}`,
         {
           method: "PUT",
 

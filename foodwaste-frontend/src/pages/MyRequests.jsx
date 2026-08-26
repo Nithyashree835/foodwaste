@@ -20,7 +20,7 @@ function MyRequests() {
       setLoading(true);
 
       const response = await fetch(
-        `http://foodwaste-backend-btuy.onrender.com/api/requests/ngo/${userId}`
+        `https://foodwaste-backend-btuy.onrender.com/api/requests/ngo/${userId}`
       );
 
       if (!response.ok) {
