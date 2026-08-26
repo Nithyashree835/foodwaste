@@ -874,3 +874,109 @@
   }
 
 }
+
+/* =========================================
+   EXTRA REGISTRATION FIELDS
+========================================= */
+
+.auth-input-wrapper select {
+  width: 100%;
+  height: 50px;
+
+  border: 1px solid #dce7e1;
+  border-radius: 12px;
+
+  padding: 0 45px;
+
+  background: #f9fcfa;
+  color: #1f2937;
+
+  font-size: 14px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+  appearance: auto;
+}
+
+.auth-input-wrapper select:focus {
+  background: white;
+
+  border-color: #059669;
+
+  box-shadow:
+    0 0 0 4px rgba(5, 150, 105, 0.10);
+}
+
+.auth-input-wrapper select:invalid {
+  color: #9ca3af;
+}
+
+.auth-input-wrapper select option {
+  color: #1f2937;
+  background: white;
+}
+
+
+/* =========================================
+   PHONE FIELD
+========================================= */
+
+.auth-input-wrapper input[type="tel"] {
+  padding-left: 45px;
+}
+
+
+/* =========================================
+   ORGANIZATION FIELDS
+========================================= */
+
+.auth-input-group:has(
+  input[name="organizationName"]
+),
+.auth-input-group:has(
+  select[name="organizationType"]
+) {
+  animation: authFieldAppear 0.25s ease;
+}
+
+
+/* =========================================
+   EXTRA FIELD ANIMATION
+========================================= */
+
+@keyframes authFieldAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .auth-input-wrapper select {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  .auth-input-wrapper input[type="tel"] {
+    height: 50px;
+  }
+
+}
