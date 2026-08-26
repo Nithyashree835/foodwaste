@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
@@ -11,7 +10,11 @@ function Register() {
     name: "",
     email: "",
     password: "",
-    role: "DONOR"
+    role: "DONOR",
+    phone: "",
+    address: "",
+    organizationName: "",
+    organizationType: ""
   });
 
   const [message, setMessage] = useState("");
@@ -34,6 +37,22 @@ function Register() {
 
 
   // ==============================
+  // CHANGE ROLE
+  // ==============================
+
+  const changeRole = (role) => {
+
+    setFormData({
+      ...formData,
+      role: role
+    });
+
+    setMessage("");
+
+  };
+
+
+  // ==============================
   // REGISTER
   // ==============================
 
@@ -43,6 +62,7 @@ function Register() {
 
     setMessage("");
     setLoading(true);
+
 
     try {
 
@@ -59,7 +79,9 @@ function Register() {
         }
       );
 
+
       const result = await response.text();
+
 
       if (response.ok) {
 
@@ -67,12 +89,18 @@ function Register() {
           "Registration successful!"
         );
 
+
         setFormData({
           name: "",
           email: "",
           password: "",
-          role: "DONOR"
+          role: "DONOR",
+          phone: "",
+          address: "",
+          organizationName: "",
+          organizationType: ""
         });
+
 
         setTimeout(() => {
 
@@ -87,6 +115,7 @@ function Register() {
         );
 
       }
+
 
     } catch (error) {
 
@@ -210,12 +239,16 @@ function Register() {
             <form onSubmit={handleSubmit}>
 
 
-              {/* NAME */}
+              {/* =========================
+                  FULL NAME
+              ========================= */}
 
               <div className="auth-input-group">
 
                 <label>
-                  Full Name
+                  {formData.role === "NGO"
+                    ? "Contact Person Name"
+                    : "Full Name"}
                 </label>
 
                 <div className="auth-input-wrapper">
@@ -227,7 +260,11 @@ function Register() {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Enter your full name"
+                    placeholder={
+                      formData.role === "NGO"
+                        ? "Enter contact person name"
+                        : "Enter your full name"
+                    }
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -238,7 +275,9 @@ function Register() {
               </div>
 
 
-              {/* EMAIL */}
+              {/* =========================
+                  EMAIL
+              ========================= */}
 
               <div className="auth-input-group">
 
@@ -266,7 +305,9 @@ function Register() {
               </div>
 
 
-              {/* PASSWORD */}
+              {/* =========================
+                  PASSWORD
+              ========================= */}
 
               <div className="auth-input-group">
 
@@ -298,7 +339,9 @@ function Register() {
                     type="button"
                     className="password-toggle"
                     onClick={() =>
-                      setShowPassword(!showPassword)
+                      setShowPassword(
+                        !showPassword
+                      )
                     }
                   >
                     {showPassword
@@ -315,7 +358,9 @@ function Register() {
               </div>
 
 
-              {/* ROLE */}
+              {/* =========================
+                  ROLE
+              ========================= */}
 
               <div className="auth-input-group">
 
@@ -326,7 +371,9 @@ function Register() {
                 <div className="role-selection">
 
 
-                  {/* DONOR */}
+                  {/* =========================
+                      DONOR
+                  ========================= */}
 
                   <button
                     type="button"
@@ -336,10 +383,7 @@ function Register() {
                         : "role-card"
                     }
                     onClick={() =>
-                      setFormData({
-                        ...formData,
-                        role: "DONOR"
-                      })
+                      changeRole("DONOR")
                     }
                   >
 
@@ -360,15 +404,19 @@ function Register() {
                     </span>
 
                     <span className="role-check">
+
                       {formData.role === "DONOR"
                         ? "✓"
                         : ""}
+
                     </span>
 
                   </button>
 
 
-                  {/* NGO */}
+                  {/* =========================
+                      NGO
+                  ========================= */}
 
                   <button
                     type="button"
@@ -378,10 +426,7 @@ function Register() {
                         : "role-card"
                     }
                     onClick={() =>
-                      setFormData({
-                        ...formData,
-                        role: "NGO"
-                      })
+                      changeRole("NGO")
                     }
                   >
 
@@ -402,9 +447,11 @@ function Register() {
                     </span>
 
                     <span className="role-check">
+
                       {formData.role === "NGO"
                         ? "✓"
                         : ""}
+
                     </span>
 
                   </button>
@@ -414,7 +461,237 @@ function Register() {
               </div>
 
 
-              {/* MESSAGE */}
+              {/* =================================================
+                  DONOR INFORMATION
+              ================================================= */}
+
+              {formData.role === "DONOR" && (
+
+                <>
+
+                  {/* PHONE */}
+
+                  <div className="auth-input-group">
+
+                    <label>
+                      Phone Number
+                    </label>
+
+                    <div className="auth-input-wrapper">
+
+                      <span className="auth-input-icon">
+                        📞
+                      </span>
+
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                      />
+
+                    </div>
+
+                  </div>
+
+
+                  {/* ADDRESS */}
+
+                  <div className="auth-input-group">
+
+                    <label>
+                      Address
+                    </label>
+
+                    <div className="auth-input-wrapper">
+
+                      <span className="auth-input-icon">
+                        📍
+                      </span>
+
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="Enter your address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                      />
+
+                    </div>
+
+                  </div>
+
+                </>
+
+              )}
+
+
+              {/* =================================================
+                  NGO INFORMATION
+              ================================================= */}
+
+              {formData.role === "NGO" && (
+
+                <>
+
+                  {/* ORGANIZATION NAME */}
+
+                  <div className="auth-input-group">
+
+                    <label>
+                      Organization Name
+                    </label>
+
+                    <div className="auth-input-wrapper">
+
+                      <span className="auth-input-icon">
+                        🏢
+                      </span>
+
+                      <input
+                        type="text"
+                        name="organizationName"
+                        placeholder="Enter organization name"
+                        value={formData.organizationName}
+                        onChange={handleChange}
+                        required
+                      />
+
+                    </div>
+
+                  </div>
+
+
+                  {/* ORGANIZATION TYPE */}
+
+                  <div className="auth-input-group">
+
+                    <label>
+                      Organization Type
+                    </label>
+
+                    <div className="auth-input-wrapper">
+
+                      <span className="auth-input-icon">
+                        🏛️
+                      </span>
+
+                      <select
+                        name="organizationType"
+                        value={formData.organizationType}
+                        onChange={handleChange}
+                        required
+                      >
+
+                        <option value="">
+                          Select organization type
+                        </option>
+
+                        <option value="NGO">
+                          NGO
+                        </option>
+
+                        <option value="Charitable Trust">
+                          Charitable Trust
+                        </option>
+
+                        <option value="Community Organization">
+                          Community Organization
+                        </option>
+
+                        <option value="Non-Profit Organization">
+                          Non-Profit Organization
+                        </option>
+
+                        <option value="Orphanage">
+                          Orphanage
+                        </option>
+
+                        <option value="Old Age Home">
+                          Old Age Home
+                        </option>
+
+                        <option value="Food Bank">
+                          Food Bank
+                        </option>
+
+                        <option value="Other">
+                          Other
+                        </option>
+
+                      </select>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* PHONE */}
+
+                  <div className="auth-input-group">
+
+                    <label>
+                      Organization Phone Number
+                    </label>
+
+                    <div className="auth-input-wrapper">
+
+                      <span className="auth-input-icon">
+                        📞
+                      </span>
+
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Enter organization phone number"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                      />
+
+                    </div>
+
+                  </div>
+
+
+                  {/* ADDRESS */}
+
+                  <div className="auth-input-group">
+
+                    <label>
+                      Organization Address
+                    </label>
+
+                    <div className="auth-input-wrapper">
+
+                      <span className="auth-input-icon">
+                        📍
+                      </span>
+
+                      <input
+                        type="text"
+                        name="address"
+                        placeholder="Enter organization address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                      />
+
+                    </div>
+
+                  </div>
+
+                </>
+
+              )}
+
+
+              {/* =========================
+                  MESSAGE
+              ========================= */}
 
               {message && (
 
@@ -432,7 +709,9 @@ function Register() {
               )}
 
 
-              {/* BUTTON */}
+              {/* =========================
+                  SUBMIT
+              ========================= */}
 
               <button
                 type="submit"
@@ -441,15 +720,19 @@ function Register() {
               >
 
                 {loading ? (
+
                   <>
                     <span className="auth-spinner"></span>
                     Creating Account...
                   </>
+
                 ) : (
+
                   <>
                     Create Account
                     <span>→</span>
                   </>
+
                 )}
 
               </button>
@@ -457,7 +740,9 @@ function Register() {
             </form>
 
 
-            {/* LOGIN */}
+            {/* =========================
+                LOGIN
+            ========================= */}
 
             <div className="auth-switch">
 
@@ -485,6 +770,7 @@ function Register() {
     </div>
 
   );
+
 }
 
 export default Register;
