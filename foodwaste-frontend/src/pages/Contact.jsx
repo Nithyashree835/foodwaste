@@ -100,7 +100,7 @@ function Contact() {
 
 
       const response = await fetch(
-        "http://localhost:8080/api/contact",
+        "http://foodwaste-backend-btuy.onrender.com/api/contact",
         {
           method: "POST",
 

@@ -24,7 +24,7 @@ function Dashboard() {
       try {
 
         const response = await fetch(
-          "http://localhost:8080/api/donations"
+          "http://foodwaste-backend-btuy.onrender.com/api/donations"
         );
 
         if (!response.ok) {

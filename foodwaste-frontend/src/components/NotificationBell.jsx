@@ -27,7 +27,7 @@ function NotificationBell() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/notifications/${userId}`
+        `https://foodwaste-backend-btuy.onrender.com/api/notifications/${userId}`
       );
 
       if (!response.ok) {
@@ -73,7 +73,7 @@ function NotificationBell() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/notifications/${userId}/unread-count`
+        `https://foodwaste-backend-btuy.onrender.com/api/notifications/${userId}/unread-count`
       );
 
       if (!response.ok) {
@@ -128,7 +128,7 @@ function NotificationBell() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/notifications/${notificationId}/read?userId=${userId}`,
+        `https://foodwaste-backend-btuy.onrender.com/api/notifications/${notificationId}/read?userId=${userId}`,
         {
           method: "PUT"
         }
@@ -171,7 +171,7 @@ function NotificationBell() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/notifications/read-all?userId=${userId}`,
+       `https://foodwaste-backend-btuy.onrender.com/api/notifications/read-all?userId=${userId}`,
         {
           method: "PUT"
         }

@@ -25,7 +25,7 @@ function ContactDonor() {
       try {
 
         const response = await fetch(
-          "http://localhost:8080/api/admin/users"
+          "http://foodwaste-backend-btuy.onrender.com/api/admin/users"
         );
 
         if (!response.ok) {
@@ -252,7 +252,7 @@ function ContactDonor() {
     try {
 
       const response = await fetch(
-        "http://localhost:8080/api/contact",
+        "http://foodwaste-backend-btuy.onrender.com/api/contact",
         {
           method: "POST",
 

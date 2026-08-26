@@ -39,8 +39,8 @@ function AdminRequests() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8080/api/admin/requests"
-      );
+          "https://foodwaste-backend-btuy.onrender.com/api/admin/requests"
+        );  
 
       if (!response.ok) {
         throw new Error(

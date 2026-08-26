@@ -23,7 +23,7 @@ function MyDonations() {
       setMessage("");
 
       const response = await fetch(
-        `http://localhost:8080/api/donations/my/${userId}`
+        `http://foodwaste-backend-btuy.onrender.com/api/donations/my/${userId}`
       );
 
       if (!response.ok) {
@@ -94,7 +94,7 @@ function MyDonations() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/donations/${id}`,
+        `http://foodwaste-backend-btuy.onrender.com/api/donations/${id}`,
         {
           method: "DELETE"
         }

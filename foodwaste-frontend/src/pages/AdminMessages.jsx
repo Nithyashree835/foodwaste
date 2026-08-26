@@ -42,7 +42,7 @@ function AdminMessages() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8080/api/contact/admin"
+        "http://foodwaste-backend-btuy.onrender.com/api/contact/admin"
       );
 
       if (!response.ok) {

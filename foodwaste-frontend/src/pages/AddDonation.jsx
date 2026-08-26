@@ -428,7 +428,7 @@ function AddDonation() {
       // ==========================================
 
       const response = await fetch(
-        "http://localhost:8080/api/donations",
+        "https://foodwaste-backend-btuy.onrender.com/api/donations",
         {
           method: "POST",
 

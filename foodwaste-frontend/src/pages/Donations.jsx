@@ -26,7 +26,7 @@ function Donations() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:8080/api/donations"
+        "http://foodwaste-backend-btuy.onrender.com/api/donations"
       );
 
       if (!response.ok) {
@@ -159,7 +159,7 @@ function Donations() {
 
 
       const response = await fetch(
-        "http://localhost:8080/api/requests",
+        "http://foodwaste-backend-btuy.onrender.com/api/requests",
         {
           method: "POST",
 

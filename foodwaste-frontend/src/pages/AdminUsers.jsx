@@ -37,9 +37,9 @@ function AdminUsers() {
 
       setLoading(true);
 
-      const response = await fetch(
-        "http://localhost:8080/api/admin/users"
-      );
+     const response = await fetch(
+  "https://foodwaste-backend-btuy.onrender.com/api/admin/users"
+);
 
       if (!response.ok) {
         throw new Error("Failed to load users");
@@ -82,7 +82,7 @@ function AdminUsers() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/admin/users/${userId}`,
+        `http://foodwaste-backend-btuy.onrender.com/api/admin/users/${userId}`,
         {
           method: "DELETE"
         }

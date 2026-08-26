@@ -24,7 +24,7 @@ function DonorMessages() {
       setError("");
 
       const response = await fetch(
-        `http://localhost:8080/api/contact/donor/${donorId}`
+        `http://foodwaste-backend-btuy.onrender.com/api/contact/donor/${donorId}`
       );
 
       if (!response.ok) {

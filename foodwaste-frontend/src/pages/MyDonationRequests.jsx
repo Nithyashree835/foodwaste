@@ -24,7 +24,7 @@ function MyDonationRequests() {
       setMessage("");
 
       const response = await fetch(
-        `http://localhost:8080/api/requests/donor/${donorId}`
+        `http://foodwaste-backend-btuy.onrender.com/api/requests/donor/${donorId}`
       );
 
       if (!response.ok) {
@@ -86,7 +86,7 @@ function MyDonationRequests() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/requests/${requestId}/approve`,
+        `http://foodwaste-backend-btuy.onrender.com/api/requests/${requestId}/approve`,
         {
           method: "PUT"
         }
@@ -141,7 +141,7 @@ function MyDonationRequests() {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/api/requests/${requestId}/reject`,
+        `http://foodwaste-backend-btuy.onrender.com/api/requests/${requestId}/reject`,
         {
           method: "PUT"
         }

@@ -37,11 +37,11 @@ function AdminDashboard() {
       setLoading(true);
 
       const [usersResponse, donationsResponse, requestsResponse] =
-        await Promise.all([
-          fetch("http://localhost:8080/api/admin/users"),
-          fetch("http://localhost:8080/api/donations"),
-          fetch("http://localhost:8080/api/admin/requests")
-        ]);
+  await Promise.all([
+    fetch("https://foodwaste-backend-btuy.onrender.com/api/admin/users"),
+    fetch("https://foodwaste-backend-btuy.onrender.com/api/donations"),
+    fetch("https://foodwaste-backend-btuy.onrender.com/api/admin/requests")
+  ]);
 
 
       if (usersResponse.ok) {
