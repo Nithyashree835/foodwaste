@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
 import Donations from "./pages/Donations";
 import AddDonation from "./pages/AddDonation";
@@ -13,9 +14,21 @@ import MyDonationRequests from "./pages/MyDonationRequests";
 import MyRequests from "./pages/MyRequests";
 import NGODashboard from "./pages/NGODashboard";
 
+import Contact from "./pages/Contact";
+import ContactDonor from "./pages/ContactDonor";
+
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminUsers from "./pages/AdminUsers";
+import AdminDonations from "./pages/AdminDonations";
+import AdminRequests from "./pages/AdminRequests";
+import AdminMessages from "./pages/AdminMessages";
+
+import DonorMessages from "./pages/DonorMessages";
+
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import './App.css'
+
+import "./App.css";
 
 
 function App() {
@@ -24,10 +37,9 @@ function App() {
 
     <Routes>
 
-
-      {/* =========================
+      {/* ==========================================
           PUBLIC PAGES
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/login"
@@ -40,9 +52,9 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           DONOR DASHBOARD
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/"
@@ -67,10 +79,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           AVAILABLE FOOD
           DONOR + NGO
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/donations"
@@ -84,10 +96,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           ADD DONATION
           DONOR ONLY
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/add-donation"
@@ -101,10 +113,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           MY DONATIONS
           DONOR ONLY
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/my-donations"
@@ -118,10 +130,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           MY CLAIMS
           NGO ONLY
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/my-claims"
@@ -135,10 +147,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           PROFILE
           DONOR + NGO
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/profile"
@@ -152,10 +164,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           DONATION DETAILS
           DONOR + NGO
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/donation/:id"
@@ -169,10 +181,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           DONATION REQUESTS
           DONOR ONLY
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/donation-requests"
@@ -186,10 +198,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           MY REQUESTS
           NGO ONLY
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/my-requests"
@@ -203,10 +215,10 @@ function App() {
       />
 
 
-      {/* =========================
+      {/* ==========================================
           NGO DASHBOARD
           NGO ONLY
-      ========================= */}
+      ========================================== */}
 
       <Route
         path="/ngo-dashboard"
@@ -218,6 +230,134 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+
+      {/* ==========================================
+          CONTACT
+      ========================================== */}
+
+      <Route
+        path="/contact"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Contact />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+  path="/contact-donor"
+  element={
+    <ProtectedRoute role="NGO">
+      <Layout>
+        <ContactDonor />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
+
+      {/* ==========================================
+          ADMIN DASHBOARD
+          ADMIN ONLY
+      ========================================== */}
+
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <Layout>
+              <AdminDashboard />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin-dashboard"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <Layout>
+              <AdminDashboard />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ==========================================
+          ADMIN USERS
+          ADMIN ONLY
+      ========================================== */}
+
+      <Route
+        path="/admin/users"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <Layout>
+              <AdminUsers />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ==========================================
+          ADMIN DONATIONS
+          ADMIN ONLY
+      ========================================== */}
+
+      <Route
+        path="/admin/donations"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <Layout>
+              <AdminDonations />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ==========================================
+          ADMIN REQUESTS
+          ADMIN ONLY
+      ========================================== */}
+
+      <Route
+        path="/admin/requests"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <Layout>
+              <AdminRequests />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ==========================================
+          ADMIN MESSAGES
+          ADMIN ONLY
+      ========================================== */}
+
+      <Route
+        path="/admin/messages"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <Layout>
+              <AdminMessages />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+  path="/donor-messages"
+  element={<DonorMessages />}
+/>
 
 
     </Routes>

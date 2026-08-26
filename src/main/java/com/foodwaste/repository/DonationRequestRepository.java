@@ -109,6 +109,52 @@ public class DonationRequestRepository {
 
 
     // ==========================================
+    // GET ALL REQUESTS - ADMIN
+    // ==========================================
+
+    public List<DonationRequest> getAllRequests() {
+
+        String sql = """
+                SELECT
+                    dr.id,
+                    dr.donation_id,
+                    dr.ngo_id,
+                    dr.requested_quantity,
+                    dr.request_date,
+                    dr.status,
+
+                    d.food_name,
+                    d.category,
+                    d.quantity,
+                    d.unit,
+                    d.pickup_location,
+                    d.expiry_date,
+
+                    ngo.name AS ngo_name,
+                    donor.name AS donor_name
+
+                FROM donation_requests dr
+
+                JOIN donations d
+                    ON dr.donation_id = d.id
+
+                JOIN users ngo
+                    ON dr.ngo_id = ngo.id
+
+                JOIN users donor
+                    ON d.donor_id = donor.id
+
+                ORDER BY dr.id DESC
+                """;
+
+        return jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> mapAdminRequest(rs)
+        );
+    }
+
+
+    // ==========================================
     // CREATE REQUEST
     // ==========================================
 
@@ -473,6 +519,76 @@ public class DonationRequestRepository {
 
         request.setExpiryDate(
                 rs.getString("expiry_date")
+        );
+
+        request.setDonorName(
+                rs.getString("donor_name")
+        );
+
+        return request;
+    }
+
+
+    // ==========================================
+    // MAP ADMIN REQUEST
+    // ==========================================
+
+    private DonationRequest mapAdminRequest(
+            ResultSet rs) throws SQLException {
+
+        DonationRequest request =
+                new DonationRequest();
+
+        request.setId(
+                rs.getInt("id")
+        );
+
+        request.setDonationId(
+                rs.getInt("donation_id")
+        );
+
+        request.setNgoId(
+                rs.getInt("ngo_id")
+        );
+
+        request.setRequestedQuantity(
+                rs.getInt("requested_quantity")
+        );
+
+        request.setRequestDate(
+                rs.getString("request_date")
+        );
+
+        request.setStatus(
+                rs.getString("status")
+        );
+
+        request.setFoodName(
+                rs.getString("food_name")
+        );
+
+        request.setCategory(
+                rs.getString("category")
+        );
+
+        request.setQuantity(
+                rs.getInt("quantity")
+        );
+
+        request.setUnit(
+                rs.getString("unit")
+        );
+
+        request.setPickupLocation(
+                rs.getString("pickup_location")
+        );
+
+        request.setExpiryDate(
+                rs.getString("expiry_date")
+        );
+
+        request.setNgoName(
+                rs.getString("ngo_name")
         );
 
         request.setDonorName(

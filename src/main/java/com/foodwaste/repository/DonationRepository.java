@@ -19,14 +19,22 @@ public class DonationRepository {
 
 
     // ==========================================
-    // GET ALL DONATIONS
+    // GET ALL AVAILABLE DONATIONS
     // ==========================================
 
     public List<Donation> getAllDonations() {
 
         String sql = """
-                SELECT * FROM donations
-                ORDER BY id DESC
+                SELECT d.*
+                FROM donations d
+                WHERE d.status = 'AVAILABLE'
+                AND NOT EXISTS (
+                    SELECT 1
+                    FROM donation_requests dr
+                    WHERE dr.donation_id = d.id
+                    AND dr.status = 'PENDING'
+                )
+                ORDER BY d.id DESC
                 """;
 
         return jdbcTemplate.query(
@@ -86,7 +94,8 @@ public class DonationRepository {
     public List<Donation> getDonationsByDonor(int donorId) {
 
         String sql = """
-                SELECT * FROM donations
+                SELECT *
+                FROM donations
                 WHERE donor_id = ?
                 ORDER BY id DESC
                 """;
@@ -106,7 +115,8 @@ public class DonationRepository {
     public List<Donation> getClaimsByUser(int userId) {
 
         String sql = """
-                SELECT * FROM donations
+                SELECT *
+                FROM donations
                 WHERE claimed_by = ?
                 ORDER BY id DESC
                 """;
@@ -181,6 +191,7 @@ public class DonationRepository {
             String newStatus) {
 
         // Get current pickup status
+
         String selectSql = """
                 SELECT pickup_status
                 FROM donations
@@ -197,10 +208,14 @@ public class DonationRepository {
                         userId
                 );
 
-        // Donation doesn't exist or user is not claimant
+
+        // Donation doesn't exist
+        // or user is not claimant
+
         if (currentStatuses.isEmpty()) {
             return 0;
         }
+
 
         String currentStatus =
                 currentStatuses.get(0);
@@ -246,6 +261,24 @@ public class DonationRepository {
         );
     }
 
+    // ==========================================
+// GET ALL DONATIONS FOR ADMIN
+// ==========================================
+
+    public List<Donation> getAllDonationsForAdmin() {
+
+        String sql = """
+            SELECT *
+            FROM donations
+            ORDER BY id DESC
+            """;
+
+        return jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> mapDonation(rs)
+        );
+    }
+
 
     // ==========================================
     // VALID PICKUP STATUS
@@ -286,7 +319,7 @@ public class DonationRepository {
                     next.equals("PICKUP_PENDING");
 
 
-            // NGO can directly mark food as picked up
+            // NGO can mark food as picked up
             case "PICKUP_PENDING" ->
                     next.equals("PICKED_UP");
 
@@ -296,7 +329,7 @@ public class DonationRepository {
                     next.equals("PICKED_UP");
 
 
-            // After pickup, NGO can complete it
+            // After pickup
             case "PICKED_UP" ->
                     next.equals("COMPLETED");
 
@@ -316,17 +349,15 @@ public class DonationRepository {
     // DELETE DONATION
     // ==========================================
 
+
     public int deleteDonation(int id) {
 
         String sql = """
-                DELETE FROM donations
-                WHERE id = ?
-                """;
+            DELETE FROM donations
+            WHERE id = ?
+            """;
 
-        return jdbcTemplate.update(
-                sql,
-                id
-        );
+        return jdbcTemplate.update(sql, id);
     }
 
 
@@ -340,6 +371,10 @@ public class DonationRepository {
         Donation donation =
                 new Donation();
 
+
+        // ======================================
+        // BASIC DETAILS
+        // ======================================
 
         donation.setId(
                 rs.getInt("id")
@@ -408,7 +443,6 @@ public class DonationRepository {
             donation.setDonorId(
                     donorId
             );
-
         }
 
 
@@ -424,7 +458,6 @@ public class DonationRepository {
             donation.setClaimedBy(
                     claimedBy
             );
-
         }
 
 

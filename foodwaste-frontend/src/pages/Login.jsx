@@ -123,15 +123,19 @@ function Login() {
 
       setTimeout(() => {
 
-        if (user.role === "NGO") {
+       if (user.role === "ADMIN") {
 
-          navigate("/ngo-dashboard");
+  navigate("/admin-dashboard");
 
-        } else {
+} else if (user.role === "NGO") {
 
-          navigate("/dashboard");
+  navigate("/ngo-dashboard");
 
-        }
+} else {
+
+  navigate("/dashboard");
+
+}
 
       }, 700);
 

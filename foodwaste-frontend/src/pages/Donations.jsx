@@ -593,34 +593,79 @@ function Donations() {
                     )}
 
 
-                    {/* =================================
-                        REQUEST BUTTON
-                    ================================= */}
+ {/* =================================
+    REQUEST QUANTITY
+================================= */}
 
-                    {userRole === "NGO" && (
+{userRole === "NGO" && (
 
-                      <button
-                        className="donations-button"
+  <div className="donations-request-box">
 
-                        disabled={
-                          requestingId ===
-                          donation.id
-                        }
+    <label>
+      Request Quantity
+    </label>
 
-                        onClick={() =>
-                          requestDonation(
-                            donation.id,
-                            donation.quantity
-                          )
-                        }
-                      >
+    <input
+      type="number"
+      min="1"
+      max={donation.quantity}
+      defaultValue={donation.quantity}
+      id={`quantity-${donation.id}`}
+      className="donations-quantity-input"
+    />
 
-                        {requestingId === donation.id
-                          ? "⏳ Sending Request..."
-                          : "📩 Request This Food"
-                        }
+    <small>
+      Maximum: {donation.quantity} {donation.unit}
+    </small>
 
-                      </button>
+
+    <button
+      className="donations-button"
+
+      disabled={
+        requestingId === donation.id
+      }
+
+      onClick={() => {
+
+        const input =
+          document.getElementById(
+            `quantity-${donation.id}`
+          );
+
+        const quantity =
+          Number(input.value);
+
+        if (
+          !quantity ||
+          quantity <= 0 ||
+          quantity > donation.quantity
+        ) {
+
+          alert(
+            `Please enter a quantity between 1 and ${donation.quantity}`
+          );
+
+          return;
+        }
+
+        requestDonation(
+          donation.id,
+          quantity
+        );
+
+      }}
+    >
+
+      {requestingId === donation.id
+        ? "⏳ Sending Request..."
+        : "📩 Request This Food"}
+
+    </button>
+
+  </div>
+
+
 
                     )}
 

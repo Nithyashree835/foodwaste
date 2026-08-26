@@ -316,3 +316,42 @@
     font-size: 18px;
   }
 }
+
+
+.donations-request-box {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.donations-request-box label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.donations-quantity-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 5px;
+}
+
+.donations-quantity-input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+}
+
+.donations-request-box small {
+  display: block;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.donations-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,619 @@
+/* =========================================================
+   CONTACT PAGE
+========================================================= */
+
+.contact-page {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  padding: 45px 25px;
+  background: #f7faf8;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.contact-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   LEFT INFORMATION PANEL
+========================================================= */
+
+.contact-info {
+  position: relative;
+  overflow: hidden;
+
+  padding: 42px 36px;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #064e3b 0%,
+      #047857 55%,
+      #10b981 100%
+    );
+
+  color: white;
+
+  box-shadow:
+    0 18px 45px rgba(6, 78, 59, 0.18);
+}
+
+
+/* Decorative circles */
+
+.contact-info::before {
+  content: "";
+
+  position: absolute;
+
+  width: 230px;
+  height: 230px;
+
+  top: -110px;
+  right: -90px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+
+.contact-info::after {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  bottom: -90px;
+  left: -80px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================================================
+   INFO CONTENT
+========================================================= */
+
+.contact-info h1 {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 12px;
+
+  font-size: 31px;
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+
+.contact-info > p {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 32px;
+
+  max-width: 420px;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   CONTACT ITEMS
+========================================================= */
+
+.contact-item {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 18px;
+  padding: 17px 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.10);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(8px);
+
+  transition: 0.25s ease;
+}
+
+
+.contact-item:hover {
+  transform: translateX(5px);
+
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.contact-item h3 {
+  margin: 0 0 6px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: rgba(255, 255, 255, 0.75);
+}
+
+
+.contact-item p {
+  margin: 0;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   RIGHT FORM
+========================================================= */
+
+.contact-form {
+  padding: 38px;
+
+  background: white;
+
+  border-radius: 26px;
+
+  border: 1px solid #e4eee8;
+
+  box-shadow:
+    0 12px 40px rgba(16, 85, 55, 0.08);
+
+  box-sizing: border-box;
+}
+
+
+.contact-form h2 {
+  margin: 0 0 8px;
+
+  color: #064e3b;
+
+  font-size: 27px;
+  font-weight: 800;
+}
+
+
+.contact-form > p {
+  margin: 0 0 25px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   TYPE BUTTONS
+========================================================= */
+
+.contact-type-buttons {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-bottom: 23px;
+}
+
+
+.contact-type {
+  min-height: 46px;
+
+  padding: 10px 14px;
+
+  border: 1px solid #dbe7df;
+
+  border-radius: 12px;
+
+  background: #f8faf9;
+
+  color: #374151;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+
+.contact-type:hover {
+  border-color: #10b981;
+
+  background: #ecfdf5;
+
+  color: #047857;
+}
+
+
+.contact-type.active {
+  border-color: #047857;
+
+  background: #047857;
+
+  color: white;
+
+  box-shadow:
+    0 6px 15px rgba(4, 120, 87, 0.18);
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid #dce7e1;
+
+  border-radius: 13px;
+
+  background: #fbfdfc;
+
+  color: #111827;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.contact-form input {
+  height: 50px;
+
+  padding: 0 15px;
+}
+
+
+.contact-form textarea {
+  min-height: 140px;
+
+  padding: 14px 15px;
+
+  resize: vertical;
+}
+
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #10b981;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(16, 185, 129, 0.10);
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.contact-form form > button {
+  width: 100%;
+
+  min-height: 50px;
+
+  margin-top: 3px;
+
+  border: none;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #047857,
+      #10b981
+    );
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(4, 120, 87, 0.20);
+
+  transition: 0.25s ease;
+}
+
+
+.contact-form form > button:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(4, 120, 87, 0.25);
+}
+
+
+.contact-form form > button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+
+.contact-form form > button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .contact-page {
+    padding: 30px 20px;
+  }
+
+
+  .contact-container {
+    grid-template-columns: 1fr;
+
+    max-width: 750px;
+  }
+
+
+  .contact-info {
+    padding: 32px;
+  }
+
+
+  .contact-info > p {
+    max-width: 600px;
+  }
+
+
+  .contact-item {
+    margin-bottom: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .contact-page {
+    min-height: 100vh;
+
+    padding: 20px 14px;
+  }
+
+
+  .contact-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+  }
+
+
+  /* -----------------------------------------
+     INFORMATION
+  ----------------------------------------- */
+
+  .contact-info {
+    padding: 27px 21px;
+
+    border-radius: 21px;
+  }
+
+
+  .contact-info h1 {
+    font-size: 24px;
+
+    line-height: 1.25;
+  }
+
+
+  .contact-info > p {
+    margin-bottom: 22px;
+
+    font-size: 13px;
+  }
+
+
+  .contact-item {
+    padding: 14px;
+
+    margin-bottom: 10px;
+
+    border-radius: 13px;
+  }
+
+
+  .contact-item h3 {
+    font-size: 12px;
+  }
+
+
+  .contact-item p {
+    font-size: 13px;
+  }
+
+
+  /* -----------------------------------------
+     FORM
+  ----------------------------------------- */
+
+  .contact-form {
+    padding: 23px 18px;
+
+    border-radius: 21px;
+  }
+
+
+  .contact-form h2 {
+    font-size: 22px;
+  }
+
+
+  .contact-form > p {
+    font-size: 12px;
+
+    margin-bottom: 20px;
+  }
+
+
+  /* -----------------------------------------
+     TYPE BUTTONS
+  ----------------------------------------- */
+
+  .contact-type-buttons {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 18px;
+  }
+
+
+  .contact-type {
+    min-height: 44px;
+
+    font-size: 12px;
+  }
+
+
+  /* -----------------------------------------
+     INPUTS
+  ----------------------------------------- */
+
+  .contact-form form {
+    gap: 12px;
+  }
+
+
+  .contact-form input {
+    height: 48px;
+
+    font-size: 13px;
+  }
+
+
+  .contact-form textarea {
+    min-height: 125px;
+
+    font-size: 13px;
+  }
+
+
+  .contact-form form > button {
+    min-height: 48px;
+
+    font-size: 13px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .contact-page {
+    padding: 15px 10px;
+  }
+
+
+  .contact-info {
+    padding: 23px 17px;
+  }
+
+
+  .contact-info h1 {
+    font-size: 21px;
+  }
+
+
+  .contact-form {
+    padding: 20px 15px;
+  }
+
+
+  .contact-form h2 {
+    font-size: 20px;
+  }
+
+
+  .contact-item {
+    padding: 12px;
+  }
+
+}

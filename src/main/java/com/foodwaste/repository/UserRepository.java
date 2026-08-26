@@ -4,6 +4,8 @@ import com.foodwaste.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRepository {
 
@@ -81,6 +83,67 @@ public class UserRepository {
                     return null;
                 },
                 email
+        );
+    }
+
+
+    // ==============================
+    // GET ALL USERS
+    // ==============================
+
+    public List<User> getAllUsers() {
+
+        String sql = """
+                SELECT id, name, email, role
+                FROM users
+                ORDER BY id DESC
+                """;
+
+        return jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> {
+
+                    User user = new User();
+
+                    user.setId(
+                            rs.getInt("id")
+                    );
+
+                    user.setName(
+                            rs.getString("name")
+                    );
+
+                    user.setEmail(
+                            rs.getString("email")
+                    );
+
+                    user.setPassword(null);
+
+                    user.setRole(
+                            rs.getString("role")
+                    );
+
+                    return user;
+                }
+        );
+    }
+
+
+    // ==============================
+    // DELETE USER
+    // ==============================
+
+    public int deleteUser(int id) {
+
+        String sql = """
+                DELETE FROM users
+                WHERE id = ?
+                AND role <> 'ADMIN'
+                """;
+
+        return jdbcTemplate.update(
+                sql,
+                id
         );
     }
 }

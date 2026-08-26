@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175"
+})
 @RequestMapping("/api/donations")
 public class DonationController {
 
@@ -29,6 +33,17 @@ public class DonationController {
     public List<Donation> getAllDonations() {
 
         return donationRepository.getAllDonations();
+    }
+
+    // ==========================================
+// GET ALL DONATIONS FOR ADMIN
+// ==========================================
+
+    @GetMapping("/admin/all")
+    public List<Donation> getAllDonationsForAdmin() {
+
+        return donationRepository
+                .getAllDonationsForAdmin();
     }
 
 

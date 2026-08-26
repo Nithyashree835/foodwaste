@@ -4,12 +4,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const navigate = useNavigate();
 
-  const userName =
-    localStorage.getItem("userName");
-
-  const userRole =
-    localStorage.getItem("userRole");
-
+  const userName = localStorage.getItem("userName");
+  const userRole = localStorage.getItem("userRole");
 
   const handleLogout = () => {
 
@@ -21,18 +17,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     navigate("/login");
   };
 
-
   const closeSidebar = () => {
 
     if (window.innerWidth <= 768) {
       setSidebarOpen(false);
     }
-
   };
 
+  const navClass = ({ isActive }) =>
+    isActive
+      ? "nav-item active"
+      : "nav-item";
 
   return (
-
     <aside
       className={
         sidebarOpen
@@ -41,7 +38,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       }
     >
 
-      {/* Mobile Close Button */}
+      {/* CLOSE BUTTON */}
 
       <button
         className="sidebar-close"
@@ -51,7 +48,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       </button>
 
 
-      {/* Logo */}
+      {/* LOGO */}
 
       <div className="sidebar-logo">
 
@@ -60,207 +57,275 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
 
         <div>
+
           <h2>FoodRescue</h2>
 
           <span>
             Save food. Help people.
           </span>
+
         </div>
 
       </div>
 
 
-      {/* USER PROFILE */}
+      {/* USER */}
 
-<div className="sidebar-user-card">
+      <div className="sidebar-user-card">
 
-  {/* Avatar */}
+        <div className="user-avatar">
 
-  <div className="user-avatar">
+          {userName
+            ? userName.charAt(0).toUpperCase()
+            : "U"}
 
-    {userName
-      ? userName.charAt(0).toUpperCase()
-      : "U"}
+        </div>
 
-  </div>
+        <div className="user-details">
 
+          <div className="user-name">
+            {userName || "User"}
+          </div>
 
-  {/* User Details */}
+          <div className="user-role">
 
-  <div className="user-details">
+            <span className="online-dot"></span>
 
-    <div className="user-name">
-      {userName || "User"}
-    </div>
+            {userRole === "ADMIN"
+              ? "Administrator"
+              : userRole === "NGO"
+              ? "NGO Member"
+              : "Donor"}
 
-    <div className="user-role">
+          </div>
 
-      <span className="online-dot"></span>
+        </div>
 
-      {userRole === "NGO"
-        ? "NGO Member"
-        : "Donor"}
-
-    </div>
-
-  </div>
-
-</div>
+      </div>
 
 
-      {/* Navigation */}
+      {/* ==========================================
+          ADMIN SIDEBAR
+      ========================================== */}
 
-      <nav className="sidebar-nav">
+      {userRole === "ADMIN" ? (
 
-        <NavLink
-          to={
-            userRole === "NGO"
-              ? "/ngo-dashboard"
-              : "/dashboard"
-          }
-          onClick={closeSidebar}
-          className={({ isActive }) =>
-            isActive
-              ? "nav-item active"
-              : "nav-item"
-          }
-        >
-          <span>🏠</span>
-          Dashboard
-        </NavLink>
-
-
-        <NavLink
-          to="/donations"
-          onClick={closeSidebar}
-          className={({ isActive }) =>
-            isActive
-              ? "nav-item active"
-              : "nav-item"
-          }
-        >
-          <span>🍱</span>
-          Available Food
-        </NavLink>
-
-
-        {/* Only DONOR */}
-
-        {userRole !== "NGO" && (
+        <nav className="sidebar-nav">
 
           <NavLink
-            to="/add-donation"
+            to="/admin"
             onClick={closeSidebar}
-            className={({ isActive }) =>
-              isActive
-                ? "nav-item active"
-                : "nav-item"
-            }
+            className={navClass}
           >
-            <span>➕</span>
-            Donate Food
+            <span>🛡️</span>
+            Dashboard
           </NavLink>
 
-        )}
-
-
-        {/* Only DONOR */}
-
-        {userRole !== "NGO" && (
 
           <NavLink
-            to="/my-donations"
+            to="/admin/users"
             onClick={closeSidebar}
-            className={({ isActive }) =>
-              isActive
-                ? "nav-item active"
-                : "nav-item"
-            }
+            className={navClass}
           >
-            <span>📦</span>
-            My Donations
+            <span>👥</span>
+            Users
           </NavLink>
 
-        )}
-
-
-        {/* Only NGO */}
-
-        {userRole === "NGO" && (
 
           <NavLink
-            to="/my-claims"
+            to="/admin/donations"
             onClick={closeSidebar}
-            className={({ isActive }) =>
-              isActive
-                ? "nav-item active"
-                : "nav-item"
-            }
+            className={navClass}
           >
-            <span>❤️</span>
-            My Claims
+            <span>🍱</span>
+            Donations
           </NavLink>
 
-        )}
-
-
-        {/* Only NGO */}
-
-        {userRole === "NGO" && (
 
           <NavLink
-            to="/my-requests"
+            to="/admin/requests"
             onClick={closeSidebar}
-            className={({ isActive }) =>
-              isActive
-                ? "nav-item active"
-                : "nav-item"
-            }
+            className={navClass}
           >
             <span>📩</span>
-            My Requests
+            Requests
           </NavLink>
 
-        )}
-
-
-        {/* Only DONOR */}
-
-        {userRole !== "NGO" && (
 
           <NavLink
-            to="/donation-requests"
+            to="/admin/messages"
             onClick={closeSidebar}
-            className={({ isActive }) =>
-              isActive
-                ? "nav-item active"
-                : "nav-item"
-            }
+            className={navClass}
           >
-            <span>📩</span>
-            Donation Requests
+            <span>💬</span>
+            Messages
           </NavLink>
 
-        )}
+        </nav>
+
+      ) : (
+
+        /* ==========================================
+           DONOR / NGO SIDEBAR
+        ========================================== */
+
+        <nav className="sidebar-nav">
+
+          <NavLink
+            to={
+              userRole === "NGO"
+                ? "/ngo-dashboard"
+                : "/dashboard"
+            }
+            onClick={closeSidebar}
+            className={navClass}
+          >
+            <span>🏠</span>
+            Dashboard
+          </NavLink>
 
 
-        <NavLink
-          to="/profile"
-          onClick={closeSidebar}
-          className={({ isActive }) =>
-            isActive
-              ? "nav-item active"
-              : "nav-item"
-          }
-        >
-          <span>👤</span>
-          Profile
-        </NavLink>
-
-      </nav>
+          <NavLink
+            to="/donations"
+            onClick={closeSidebar}
+            className={navClass}
+          >
+            <span>🍱</span>
+            Available Food
+          </NavLink>
 
 
-      {/* Logout */}
+          {userRole !== "NGO" && (
+
+            <NavLink
+              to="/add-donation"
+              onClick={closeSidebar}
+              className={navClass}
+            >
+              <span>➕</span>
+              Donate Food
+            </NavLink>
+
+          )}
+
+
+          {userRole !== "NGO" && (
+
+            <NavLink
+              to="/my-donations"
+              onClick={closeSidebar}
+              className={navClass}
+            >
+              <span>📦</span>
+              My Donations
+            </NavLink>
+
+          )}
+
+
+          {userRole === "NGO" && (
+
+            <NavLink
+              to="/my-claims"
+              onClick={closeSidebar}
+              className={navClass}
+            >
+              <span>❤️</span>
+              My Claims
+            </NavLink>
+
+          )}
+
+
+          {userRole === "NGO" && (
+
+            <NavLink
+              to="/my-requests"
+              onClick={closeSidebar}
+              className={navClass}
+            >
+              <span>📩</span>
+              My Requests
+            </NavLink>
+
+          )}
+
+
+          {userRole !== "NGO" && (
+
+            <NavLink
+              to="/donation-requests"
+              onClick={closeSidebar}
+              className={navClass}
+            >
+              <span>📩</span>
+              Donation Requests
+            </NavLink>
+
+          )}
+
+
+          <NavLink
+            to="/profile"
+            onClick={closeSidebar}
+            className={navClass}
+          >
+            <span>👤</span>
+            Profile
+          </NavLink>
+
+
+          {/* ==========================================
+    CONTACT
+========================================== */}
+
+{userRole === "NGO" ? (
+
+  <>
+    {/* Contact Donor */}
+
+    <NavLink
+      to="/contact-donor"
+      onClick={closeSidebar}
+      className={navClass}
+    >
+      <span>🤝</span>
+      Contact Donor
+    </NavLink>
+
+
+    {/* Contact Admin + Feedback */}
+
+    <NavLink
+      to="/contact"
+      onClick={closeSidebar}
+      className={navClass}
+    >
+      <span>📞</span>
+      Contact Admin & Feedback
+    </NavLink>
+  </>
+
+) : (
+
+  /* DONOR */
+
+  <NavLink
+    to="/contact"
+    onClick={closeSidebar}
+    className={navClass}
+  >
+    <span>📞</span>
+    Contact & Feedback
+  </NavLink>
+
+)}
+        </nav>
+
+      )}
+
+
+      {/* LOGOUT */}
 
       <div className="sidebar-bottom">
 

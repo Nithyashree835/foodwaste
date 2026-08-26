@@ -8,21 +8,56 @@ function AddDonation() {
 
   const userId = localStorage.getItem("userId");
 
+  // ==========================================
+  // GET LOCAL DATE
+  // ==========================================
+
+  const getLocalDate = () => {
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayDate = getLocalDate();
+
+
+  // ==========================================
+  // FORM DATA
+  // ==========================================
+
   const [formData, setFormData] = useState({
+
     donorName: "",
+
     foodName: "",
+
     category: "",
+
     quantity: "",
+
     unit: "",
+
     preparedDate: "",
+
     expiryDate: "",
+
     pickupLocation: "",
+
     description: ""
+
   });
 
+
   const [message, setMessage] = useState("");
+
   const [messageType, setMessageType] = useState("");
+
   const [loading, setLoading] = useState(false);
+
 
   // ==========================================
   // HANDLE INPUT
@@ -33,14 +68,19 @@ function AddDonation() {
     const { name, value } = e.target;
 
     setFormData((previousData) => ({
+
       ...previousData,
+
       [name]: value
+
     }));
 
-    // Clear previous error while typing
     if (messageType === "error") {
+
       setMessage("");
+
       setMessageType("");
+
     }
   };
 
@@ -202,27 +242,35 @@ function AddDonation() {
     // DATE VALIDATION
     // ==========================================
 
-    const today = new Date();
+    /*
+       IMPORTANT:
 
-    today.setHours(0, 0, 0, 0);
+       Do NOT use:
 
-    const preparedDate =
-      new Date(formData.preparedDate);
+       new Date(formData.preparedDate)
 
-    const expiryDate =
-      new Date(formData.expiryDate);
+       or:
+
+       new Date().toISOString()
+
+       for date-only comparisons.
+
+       We compare YYYY-MM-DD strings instead.
+    */
 
 
     // Prepared date cannot be future
-    if (preparedDate > today) {
+
+    if (formData.preparedDate > todayDate) {
 
       return "Prepared date cannot be in the future.";
 
     }
 
 
-    // Expiry cannot be before prepared
-    if (expiryDate < preparedDate) {
+    // Expiry cannot be before prepared date
+
+    if (formData.expiryDate < formData.preparedDate) {
 
       return "Expiry date cannot be before prepared date.";
 
@@ -230,7 +278,8 @@ function AddDonation() {
 
 
     // Expiry cannot be in the past
-    if (expiryDate < today) {
+
+    if (formData.expiryDate < todayDate) {
 
       return "Expiry date cannot be in the past.";
 
@@ -272,11 +321,10 @@ function AddDonation() {
 
 
     // ==========================================
-    // ALL VALID
+    // VALID
     // ==========================================
 
     return null;
-
   };
 
 
@@ -289,6 +337,7 @@ function AddDonation() {
     e.preventDefault();
 
     setMessage("");
+
     setMessageType("");
 
 
@@ -305,7 +354,6 @@ function AddDonation() {
       setMessageType("error");
 
       return;
-
     }
 
 
@@ -323,7 +371,6 @@ function AddDonation() {
       setMessageType("error");
 
       return;
-
     }
 
 
@@ -425,15 +472,25 @@ function AddDonation() {
         // ==========================================
 
         setFormData({
+
           donorName: "",
+
           foodName: "",
+
           category: "",
+
           quantity: "",
+
           unit: "",
+
           preparedDate: "",
+
           expiryDate: "",
+
           pickupLocation: "",
+
           description: ""
+
         });
 
 
@@ -476,7 +533,6 @@ function AddDonation() {
       setLoading(false);
 
     }
-
   };
 
 
@@ -491,9 +547,7 @@ function AddDonation() {
       <div className="container py-5">
 
 
-        {/* =====================================
-            HEADER
-        ===================================== */}
+        {/* HEADER */}
 
         <div className="add-donation-header">
 
@@ -516,9 +570,7 @@ function AddDonation() {
         </div>
 
 
-        {/* =====================================
-            FORM CARD
-        ===================================== */}
+        {/* FORM CARD */}
 
         <div className="add-donation-card">
 
@@ -546,9 +598,7 @@ function AddDonation() {
           </div>
 
 
-          {/* ==================================
-              FORM
-          ================================== */}
+          {/* FORM */}
 
           <form
             onSubmit={handleSubmit}
@@ -556,9 +606,7 @@ function AddDonation() {
           >
 
 
-            {/* ==================================
-                DONOR INFORMATION
-            ================================== */}
+            {/* DONOR INFORMATION */}
 
             <div className="form-section">
 
@@ -601,9 +649,7 @@ function AddDonation() {
             </div>
 
 
-            {/* ==================================
-                FOOD INFORMATION
-            ================================== */}
+            {/* FOOD INFORMATION */}
 
             <div className="form-section">
 
@@ -768,9 +814,7 @@ function AddDonation() {
             </div>
 
 
-            {/* ==================================
-                DATE INFORMATION
-            ================================== */}
+            {/* DATE INFORMATION */}
 
             <div className="form-section">
 
@@ -812,11 +856,7 @@ function AddDonation() {
                     className="custom-input"
                     value={formData.preparedDate}
                     onChange={handleChange}
-                    max={
-                      new Date()
-                        .toISOString()
-                        .split("T")[0]
-                    }
+                    max={todayDate}
                     required
                   />
 
@@ -839,9 +879,7 @@ function AddDonation() {
                     onChange={handleChange}
                     min={
                       formData.preparedDate ||
-                      new Date()
-                        .toISOString()
-                        .split("T")[0]
+                      todayDate
                     }
                     required
                   />
@@ -853,9 +891,7 @@ function AddDonation() {
             </div>
 
 
-            {/* ==================================
-                PICKUP
-            ================================== */}
+            {/* PICKUP */}
 
             <div className="form-section">
 
@@ -898,9 +934,7 @@ function AddDonation() {
             </div>
 
 
-            {/* ==================================
-                DESCRIPTION
-            ================================== */}
+            {/* DESCRIPTION */}
 
             <div className="form-section">
 
@@ -946,9 +980,7 @@ function AddDonation() {
             </div>
 
 
-            {/* ==================================
-                MESSAGE
-            ================================== */}
+            {/* MESSAGE */}
 
             {message && (
 
@@ -976,9 +1008,7 @@ function AddDonation() {
             )}
 
 
-            {/* ==================================
-                BUTTONS
-            ================================== */}
+            {/* BUTTONS */}
 
             <div className="form-buttons">
 
@@ -1009,7 +1039,9 @@ function AddDonation() {
                 ) : (
 
                   <>
+
                     🍱 Add Donation
+
                   </>
 
                 )}
@@ -1023,9 +1055,7 @@ function AddDonation() {
         </div>
 
 
-        {/* =====================================
-            FOOTER MESSAGE
-        ===================================== */}
+        {/* FOOTER MESSAGE */}
 
         <div className="donation-footer-message">
 
@@ -1050,9 +1080,7 @@ function AddDonation() {
       </div>
 
     </div>
-
   );
-
 }
 
 export default AddDonation;
