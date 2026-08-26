@@ -15,6 +15,7 @@ public class UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     // ==============================
     // REGISTER USER
     // ==============================
@@ -23,8 +24,17 @@ public class UserRepository {
 
         String sql = """
                 INSERT INTO users
-                (name, email, password, role)
-                VALUES (?, ?, ?, ?)
+                (
+                    name,
+                    email,
+                    password,
+                    role,
+                    phone,
+                    address,
+                    organization_name,
+                    organization_type
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         return jdbcTemplate.update(
@@ -32,7 +42,11 @@ public class UserRepository {
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getRole()
+                user.getRole(),
+                user.getPhone(),
+                user.getAddress(),
+                user.getOrganizationName(),
+                user.getOrganizationType()
         );
     }
 
@@ -77,6 +91,22 @@ public class UserRepository {
                                 rs.getString("role")
                         );
 
+                        user.setPhone(
+                                rs.getString("phone")
+                        );
+
+                        user.setAddress(
+                                rs.getString("address")
+                        );
+
+                        user.setOrganizationName(
+                                rs.getString("organization_name")
+                        );
+
+                        user.setOrganizationType(
+                                rs.getString("organization_type")
+                        );
+
                         return user;
                     }
 
@@ -94,7 +124,15 @@ public class UserRepository {
     public List<User> getAllUsers() {
 
         String sql = """
-                SELECT id, name, email, role
+                SELECT
+                    id,
+                    name,
+                    email,
+                    role,
+                    phone,
+                    address,
+                    organization_name,
+                    organization_type
                 FROM users
                 ORDER BY id DESC
                 """;
@@ -117,10 +155,27 @@ public class UserRepository {
                             rs.getString("email")
                     );
 
+                    // Never return password
                     user.setPassword(null);
 
                     user.setRole(
                             rs.getString("role")
+                    );
+
+                    user.setPhone(
+                            rs.getString("phone")
+                    );
+
+                    user.setAddress(
+                            rs.getString("address")
+                    );
+
+                    user.setOrganizationName(
+                            rs.getString("organization_name")
+                    );
+
+                    user.setOrganizationType(
+                            rs.getString("organization_type")
                     );
 
                     return user;
