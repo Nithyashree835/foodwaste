@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import NotificationBell from "./NotificationBell";
 import "./Layout.css";
@@ -7,6 +7,8 @@ import "./Layout.css";
 function Layout({ children }) {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const userRole =
     localStorage.getItem("userRole") || "";
@@ -66,7 +68,9 @@ function Layout({ children }) {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userRole");
 
-    window.location.href = "/login";
+    // React Router navigation
+    // This prevents Render from returning 404
+    navigate("/login", { replace: true });
 
   };
 
