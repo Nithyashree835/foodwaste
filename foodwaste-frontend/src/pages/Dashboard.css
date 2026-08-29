@@ -1,6 +1,5 @@
-
 /* =====================================================
-   DONOR DASHBOARD - BASE
+   DONOR DASHBOARD
 ===================================================== */
 
 .dashboard-page {
@@ -9,7 +8,6 @@
   margin: 0 auto;
   padding: 24px 30px 40px;
   box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 /* =====================================================
@@ -19,9 +17,18 @@
 .dashboard-hero {
   position: relative;
   overflow: hidden;
+
+  width: 100%;
   min-height: 300px;
+
+  display: flex;
+  align-items: center;
+
   padding: 45px 50px;
-  margin-bottom: 38px;
+  margin-bottom: 40px;
+
+  box-sizing: border-box;
+
   border-radius: 28px;
 
   background: linear-gradient(
@@ -34,21 +41,18 @@
   color: white;
 
   box-shadow: 0 15px 40px rgba(4, 120, 87, 0.18);
-
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
 }
 
 .dashboard-hero::before {
   content: "";
+
   position: absolute;
 
   width: 320px;
   height: 320px;
 
   right: -120px;
-  top: -150px;
+  top: -140px;
 
   border-radius: 50%;
 
@@ -57,6 +61,7 @@
 
 .dashboard-hero::after {
   content: "";
+
   position: absolute;
 
   width: 230px;
@@ -86,7 +91,7 @@
   display: inline-flex;
   align-items: center;
 
-  padding: 7px 14px;
+  padding: 8px 14px;
   margin-bottom: 16px;
 
   border-radius: 50px;
@@ -95,23 +100,24 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
 
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .dashboard-hero h1 {
   margin: 0;
 
   font-size: 40px;
-  line-height: 1.2;
+  line-height: 1.15;
 
   font-weight: 800;
+
   letter-spacing: -0.8px;
 }
 
 .dashboard-hero p {
-  margin: 14px 0 26px;
+  max-width: 590px;
 
-  max-width: 580px;
+  margin: 14px 0 26px;
 
   color: rgba(255, 255, 255, 0.84);
 
@@ -126,6 +132,7 @@
 .hero-buttons {
   display: flex;
   align-items: center;
+
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -138,7 +145,7 @@
 
   min-height: 44px;
 
-  padding: 11px 20px;
+  padding: 0 20px;
 
   border-radius: 12px;
 
@@ -153,18 +160,20 @@
 }
 
 .hero-primary-btn {
-  background: #ffffff;
+  background: white;
   color: #047857;
 }
 
 .hero-primary-btn:hover {
   color: #047857;
+
   transform: translateY(-3px);
+
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 .hero-secondary-btn {
-  color: #ffffff;
+  color: white;
 
   border: 1px solid rgba(255, 255, 255, 0.3);
 
@@ -172,8 +181,10 @@
 }
 
 .hero-secondary-btn:hover {
-  color: #ffffff;
+  color: white;
+
   background: rgba(255, 255, 255, 0.18);
+
   transform: translateY(-3px);
 }
 
@@ -183,33 +194,32 @@
 
 .hero-decoration {
   position: absolute;
+  z-index: 2;
 
   right: 80px;
   top: 50%;
 
+  width: 190px;
+  height: 190px;
+
   transform: translateY(-50%);
-
-  width: 210px;
-  height: 210px;
-
-  z-index: 2;
 }
 
 .hero-circle {
-  width: 160px;
-  height: 160px;
-
-  border-radius: 50%;
+  width: 155px;
+  height: 155px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  border-radius: 50%;
+
   background: rgba(255, 255, 255, 0.12);
 
   border: 1px solid rgba(255, 255, 255, 0.18);
 
-  font-size: 78px;
+  font-size: 75px;
 
   backdrop-filter: blur(8px);
 
@@ -232,22 +242,22 @@
 
   backdrop-filter: blur(5px);
 
-  font-size: 21px;
+  font-size: 20px;
 }
 
 .food-one {
   top: 0;
-  right: 5px;
+  right: 0;
 }
 
 .food-two {
   right: -5px;
-  bottom: 5px;
+  bottom: 0;
 }
 
 .food-three {
   left: -5px;
-  bottom: 18px;
+  bottom: 20px;
 }
 
 @keyframes heroFloat {
@@ -266,13 +276,19 @@
 ===================================================== */
 
 .dashboard-section-heading {
+  width: 100%;
+
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 
-  width: 100%;
+  gap: 20px;
 
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+}
+
+.dashboard-section-heading > div {
+  min-width: 0;
 }
 
 .dashboard-section-heading h2 {
@@ -287,7 +303,7 @@
 }
 
 .dashboard-section-heading p {
-  margin: 5px 0 0;
+  margin: 6px 0 0;
 
   color: #6b7280;
 
@@ -303,23 +319,24 @@
   width: 100%;
 
   display: grid;
+
   grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 20px;
 
-  margin-bottom: 42px;
+  margin-bottom: 45px;
 }
 
 .dashboard-stat-card {
   position: relative;
 
-  overflow: hidden;
-
   min-width: 0;
 
-  padding: 22px;
+  overflow: hidden;
 
-  background: #ffffff;
+  padding: 23px;
+
+  background: white;
 
   border: 1px solid #e5eee8;
 
@@ -339,15 +356,17 @@
 
   position: absolute;
 
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
 
-  right: -30px;
-  bottom: -35px;
+  right: -35px;
+  bottom: -40px;
 
   border-radius: 50%;
 
   background: #ecfdf5;
+
+  pointer-events: none;
 }
 
 .dashboard-stat-card:hover {
@@ -357,6 +376,9 @@
 }
 
 .stat-card-top {
+  position: relative;
+  z-index: 1;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -368,7 +390,7 @@
   width: 48px;
   height: 48px;
 
-  min-width: 48px;
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
@@ -406,22 +428,29 @@
 }
 
 .dashboard-stat-card h2 {
+  position: relative;
+  z-index: 1;
+
   margin: 20px 0 3px;
 
   color: #064e3b;
 
-  font-size: 32px;
+  font-size: 34px;
   line-height: 1;
 
   font-weight: 800;
 }
 
 .dashboard-stat-card p {
+  position: relative;
+  z-index: 1;
+
   margin: 8px 0 0;
 
   color: #6b7280;
 
   font-size: 12px;
+  line-height: 1.4;
 }
 
 /* =====================================================
@@ -432,26 +461,25 @@
   width: 100%;
 
   display: grid;
+
   grid-template-columns: repeat(3, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 20px;
 
   margin-bottom: 45px;
 }
 
 .dashboard-action-card {
-  position: relative;
+  min-width: 0;
 
   display: flex;
   align-items: flex-start;
 
   gap: 17px;
 
-  min-width: 0;
-
   padding: 24px;
 
-  background: #ffffff;
+  background: white;
 
   border: 1px solid #e5eee8;
 
@@ -459,11 +487,11 @@
 
   box-shadow: 0 5px 20px rgba(16, 85, 55, 0.05);
 
+  box-sizing: border-box;
+
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
-
-  box-sizing: border-box;
 }
 
 .dashboard-action-card:hover {
@@ -495,7 +523,7 @@
 }
 
 .action-content h3 {
-  margin: 2px 0 7px;
+  margin: 2px 0 8px;
 
   color: #064e3b;
 
@@ -511,7 +539,7 @@
   color: #6b7280;
 
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .action-link {
@@ -535,10 +563,12 @@
 ===================================================== */
 
 .recent-heading {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .view-all-link {
+  flex-shrink: 0;
+
   color: #047857;
 
   text-decoration: none;
@@ -546,8 +576,6 @@
   font-size: 13px;
 
   font-weight: 700;
-
-  white-space: nowrap;
 }
 
 .view-all-link:hover {
@@ -558,24 +586,25 @@
   width: 100%;
 
   display: grid;
+
   grid-template-columns: repeat(3, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 20px;
 
-  margin-bottom: 42px;
+  margin-bottom: 45px;
 }
 
 .recent-donation-card {
+  min-width: 0;
+
   display: flex;
   align-items: center;
 
   gap: 14px;
 
-  min-width: 0;
+  padding: 19px;
 
-  padding: 18px;
-
-  background: #ffffff;
+  background: white;
 
   border: 1px solid #e5eee8;
 
@@ -583,9 +612,9 @@
 
   box-shadow: 0 5px 18px rgba(16, 85, 55, 0.04);
 
-  transition: 0.25s ease;
-
   box-sizing: border-box;
+
+  transition: all 0.25s ease;
 }
 
 .recent-donation-card:hover {
@@ -612,11 +641,13 @@
 }
 
 .recent-food-info {
-  flex: 1;
   min-width: 0;
+  flex: 1;
 }
 
 .recent-food-info h3 {
+  overflow: hidden;
+
   margin: 0 0 3px;
 
   color: #064e3b;
@@ -625,16 +656,20 @@
   line-height: 1.3;
 
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .recent-food-info p {
+  overflow: hidden;
+
   margin: 0 0 5px;
 
   color: #6b7280;
 
   font-size: 11px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .recent-food-info span {
@@ -650,7 +685,7 @@
   align-items: center;
   justify-content: center;
 
-  padding: 5px 8px;
+  padding: 5px 9px;
 
   border-radius: 20px;
 
@@ -680,11 +715,11 @@
 
   text-align: center;
 
-  padding: 50px 20px;
+  padding: 50px 25px;
 
-  margin-bottom: 42px;
+  margin-bottom: 45px;
 
-  background: #ffffff;
+  background: white;
 
   border: 1px dashed #cbded3;
 
@@ -694,8 +729,9 @@
 }
 
 .empty-icon {
-  font-size: 55px;
   margin-bottom: 10px;
+
+  font-size: 55px;
 }
 
 .empty-dashboard-card h3 {
@@ -707,7 +743,7 @@
 }
 
 .empty-dashboard-card p {
-  margin: 0 0 18px;
+  margin: 0 0 20px;
 
   color: #6b7280;
 
@@ -719,7 +755,9 @@
   align-items: center;
   justify-content: center;
 
-  padding: 11px 18px;
+  min-height: 42px;
+
+  padding: 0 18px;
 
   border-radius: 10px;
 
@@ -737,6 +775,7 @@
 .green-button:hover {
   background: #157347;
   color: white;
+
   transform: translateY(-2px);
 }
 
@@ -747,18 +786,18 @@
 .impact-banner {
   position: relative;
 
-  overflow: hidden;
-
   width: 100%;
+
+  overflow: hidden;
 
   display: flex;
   align-items: center;
 
-  gap: 18px;
+  gap: 20px;
 
-  padding: 25px 30px;
+  padding: 26px 30px;
 
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 
   border-radius: 20px;
 
@@ -785,11 +824,15 @@
 
   border-radius: 16px;
 
-  background: #ffffff;
+  background: white;
 
   font-size: 25px;
 
   box-shadow: 0 5px 15px rgba(16, 85, 55, 0.07);
+}
+
+.impact-banner > div:nth-child(2) {
+  min-width: 0;
 }
 
 .impact-banner h2 {
@@ -798,6 +841,9 @@
   color: #064e3b;
 
   font-size: 18px;
+  line-height: 1.3;
+
+  font-weight: 800;
 }
 
 .impact-banner p {
@@ -812,6 +858,8 @@
 .impact-leaves {
   margin-left: auto;
 
+  flex-shrink: 0;
+
   font-size: 65px;
 
   opacity: 0.25;
@@ -820,27 +868,48 @@
 }
 
 /* =====================================================
-   LARGE TABLET
+   LARGE DESKTOP
+===================================================== */
+
+@media (min-width: 1401px) {
+
+  .dashboard-page {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}
+
+/* =====================================================
+   DESKTOP / LAPTOP
 ===================================================== */
 
 @media (max-width: 1200px) {
 
   .dashboard-page {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 25px;
+    padding-right: 25px;
   }
 
   .dashboard-hero {
     padding: 40px;
   }
 
+  .hero-decoration {
+    right: 55px;
+  }
+
   .hero-content {
     width: 68%;
   }
 
-  .hero-decoration {
-    right: 45px;
-  }
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
 
   .dashboard-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -853,38 +922,16 @@
   .recent-donations-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 900px) {
-
-  .dashboard-page {
-    padding: 20px 20px 35px;
-  }
-
-  .dashboard-hero {
-    padding: 35px;
-  }
 
   .hero-content {
-    width: 70%;
-  }
-
-  .dashboard-hero h1 {
-    font-size: 34px;
+    width: 75%;
   }
 
   .hero-decoration {
-    right: 20px;
+    right: 25px;
     transform: translateY(-50%) scale(0.85);
   }
 
-  .dashboard-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 /* =====================================================
@@ -894,8 +941,9 @@
 @media (max-width: 768px) {
 
   .dashboard-page {
-    width: 100%;
-    padding: 15px 14px 30px;
+    max-width: 100%;
+
+    padding: 18px 16px 30px;
   }
 
   /* HERO */
@@ -903,18 +951,18 @@
   .dashboard-hero {
     min-height: auto;
 
+    display: block;
+
     padding: 30px 24px;
 
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 
     border-radius: 22px;
-
-    display: block;
   }
 
   .hero-content {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
   }
 
   .dashboard-hero h1 {
@@ -923,23 +971,14 @@
   }
 
   .dashboard-hero p {
-    font-size: 13px;
-    line-height: 1.65;
+    max-width: 100%;
 
-    margin: 12px 0 22px;
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .hero-decoration {
     display: none;
-  }
-
-  .hero-buttons {
-    width: 100%;
-  }
-
-  .hero-primary-btn,
-  .hero-secondary-btn {
-    min-height: 44px;
   }
 
   /* SECTION HEADING */
@@ -947,9 +986,7 @@
   .dashboard-section-heading {
     align-items: flex-start;
 
-    gap: 10px;
-
-    margin-bottom: 15px;
+    margin-bottom: 16px;
   }
 
   .dashboard-section-heading h2 {
@@ -967,38 +1004,15 @@
 
     gap: 12px;
 
-    margin-bottom: 32px;
+    margin-bottom: 35px;
   }
 
   .dashboard-stat-card {
     padding: 17px;
-
-    border-radius: 17px;
-  }
-
-  .dashboard-stat-icon {
-    width: 42px;
-    height: 42px;
-
-    min-width: 42px;
-
-    border-radius: 12px;
-
-    font-size: 19px;
   }
 
   .dashboard-stat-card h2 {
-    margin-top: 16px;
-
-    font-size: 27px;
-  }
-
-  .dashboard-stat-card p {
-    font-size: 11px;
-  }
-
-  .stat-label {
-    font-size: 8px;
+    font-size: 28px;
   }
 
   /* ACTIONS */
@@ -1012,55 +1026,17 @@
   }
 
   .dashboard-action-card {
-    padding: 19px;
-
-    border-radius: 17px;
-  }
-
-  .action-icon {
-    width: 48px;
-    height: 48px;
-
-    min-width: 48px;
-
-    border-radius: 13px;
-
-    font-size: 22px;
-  }
-
-  .action-content h3 {
-    font-size: 16px;
-  }
-
-  .action-content p {
-    font-size: 12px;
+    padding: 20px;
   }
 
   /* RECENT */
-
-  .recent-heading {
-    align-items: center;
-  }
 
   .recent-donations-grid {
     grid-template-columns: 1fr;
 
     gap: 12px;
 
-    margin-bottom: 32px;
-  }
-
-  .recent-donation-card {
-    padding: 16px;
-
-    border-radius: 16px;
-  }
-
-  .recent-food-icon {
-    width: 46px;
-    height: 46px;
-
-    min-width: 46px;
+    margin-bottom: 35px;
   }
 
   /* IMPACT */
@@ -1068,31 +1044,13 @@
   .impact-banner {
     padding: 20px;
 
-    gap: 13px;
-
-    border-radius: 17px;
-  }
-
-  .impact-icon {
-    width: 48px;
-    height: 48px;
-
-    min-width: 48px;
-
-    font-size: 22px;
-  }
-
-  .impact-banner h2 {
-    font-size: 16px;
-  }
-
-  .impact-banner p {
-    font-size: 11px;
+    gap: 14px;
   }
 
   .impact-leaves {
     display: none;
   }
+
 }
 
 /* =====================================================
@@ -1102,19 +1060,19 @@
 @media (max-width: 480px) {
 
   .dashboard-page {
-    padding: 12px 10px 25px;
+    padding: 14px 12px 25px;
   }
 
-  .dashboard-hero {
-    padding: 25px 18px;
+  /* HERO */
 
-    border-radius: 19px;
+  .dashboard-hero {
+    padding: 25px 20px;
+
+    border-radius: 20px;
   }
 
   .hero-badge {
-    padding: 6px 11px;
-
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .dashboard-hero h1 {
@@ -1123,18 +1081,57 @@
 
   .dashboard-hero p {
     font-size: 12px;
+
+    margin-bottom: 20px;
   }
 
   .hero-buttons {
     flex-direction: column;
 
-    gap: 9px;
+    width: 100%;
   }
 
   .hero-primary-btn,
   .hero-secondary-btn {
     width: 100%;
   }
+
+  /* STATS */
+
+  .dashboard-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .dashboard-stat-card {
+    padding: 14px;
+  }
+
+  .dashboard-stat-icon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+  }
+
+  .stat-label {
+    display: none;
+  }
+
+  .dashboard-stat-card h2 {
+    margin-top: 15px;
+
+    font-size: 25px;
+  }
+
+  .dashboard-stat-card p {
+    font-size: 10px;
+  }
+
+  /* SECTION */
 
   .dashboard-section-heading h2 {
     font-size: 18px;
@@ -1144,39 +1141,11 @@
     font-size: 11px;
   }
 
-  .dashboard-stats {
-    gap: 9px;
+  .view-all-link {
+    font-size: 12px;
   }
 
-  .dashboard-stat-card {
-    padding: 14px;
-
-    border-radius: 15px;
-  }
-
-  .dashboard-stat-icon {
-    width: 38px;
-    height: 38px;
-
-    min-width: 38px;
-
-    font-size: 17px;
-  }
-
-  .stat-label {
-    display: none;
-  }
-
-  .dashboard-stat-card h2 {
-    margin-top: 14px;
-
-    font-size: 24px;
-  }
-
-  .dashboard-stat-card p {
-    font-size: 10px;
-    line-height: 1.4;
-  }
+  /* ACTION */
 
   .dashboard-action-card {
     padding: 17px;
@@ -1185,12 +1154,12 @@
   }
 
   .action-icon {
-    width: 44px;
-    height: 44px;
+    width: 45px;
+    height: 45px;
 
-    min-width: 44px;
+    min-width: 45px;
 
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .action-content h3 {
@@ -1199,102 +1168,66 @@
 
   .action-content p {
     font-size: 11px;
-    line-height: 1.5;
   }
 
-  .action-link {
-    font-size: 11px;
-  }
+  /* RECENT */
 
   .recent-donation-card {
-    gap: 10px;
-    padding: 14px;
+    padding: 15px;
+
+    gap: 11px;
   }
 
   .recent-food-icon {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
 
-    min-width: 42px;
+    min-width: 44px;
 
-    font-size: 19px;
+    font-size: 20px;
   }
 
   .recent-food-info h3 {
-    font-size: 13px;
-  }
-
-  .recent-food-info p,
-  .recent-food-info span {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .recent-status {
-    padding: 4px 6px;
+    padding: 4px 7px;
 
     font-size: 8px;
   }
+
+  /* EMPTY */
 
   .empty-dashboard-card {
     padding: 40px 15px;
   }
 
+  /* IMPACT */
+
   .impact-banner {
     align-items: flex-start;
 
-    padding: 17px;
+    padding: 18px;
   }
 
   .impact-icon {
-    width: 42px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
 
-    min-width: 42px;
+    min-width: 45px;
 
-    font-size: 19px;
+    border-radius: 13px;
+
+    font-size: 21px;
   }
 
   .impact-banner h2 {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .impact-banner p {
-    font-size: 10px;
-  }
-}
-
-/* =====================================================
-   EXTRA SMALL DEVICES
-===================================================== */
-
-@media (max-width: 360px) {
-
-  .dashboard-page {
-    padding-left: 8px;
-    padding-right: 8px;
+    font-size: 11px;
   }
 
-  .dashboard-hero {
-    padding: 22px 15px;
-  }
-
-  .dashboard-hero h1 {
-    font-size: 22px;
-  }
-
-  .dashboard-stats {
-    gap: 7px;
-  }
-
-  .dashboard-stat-card {
-    padding: 12px;
-  }
-
-  .dashboard-stat-card h2 {
-    font-size: 22px;
-  }
-
-  .dashboard-stat-card p {
-    font-size: 9px;
-  }
 }
