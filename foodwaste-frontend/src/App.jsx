@@ -28,6 +28,16 @@ import DonorMessages from "./pages/DonorMessages";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import PublicNavbar from "./components/PublicNavbar";
+
+// Public website
+import PublicHome from "./pages/public/PublicHome"; 
+import AvailableFoods from "./pages/public/AvailableFoods"; import About from "./pages/public/About"; 
+import Services from "./pages/public/Services"; 
+import HowItWorks from "./pages/public/HowItWorks";
+
+import PublicContact from "./pages/public/PublicContact";
+
 import "./App.css";
 
 
@@ -36,6 +46,25 @@ function App() {
   return (
 
     <Routes>
+
+      {/* ===================================================== PUBLIC WEBSITE Anyone can access these pages ===================================================== */} {/* HOME */} <Route path="/" element={ <> <PublicNavbar /> <PublicHome /> </> } /> 
+      
+      {/* AVAILABLE FOODS */} <Route path="/available-foods" element={ <> <PublicNavbar /> <AvailableFoods /> </> } />
+      {/* ABOUT */} <Route path="/about" element={ <> <PublicNavbar /> <About /> </> } /> 
+      
+      {/* SERVICES */} <Route path="/services" element={ <> <PublicNavbar /> <Services /> </> } /> 
+      
+      {/* HOW IT WORKS */} <Route path="/how-it-works" element={ <> <PublicNavbar /> <HowItWorks /> </> } />
+
+      <Route
+  path="/PublicContact"
+  element={
+    <>
+      <PublicNavbar />
+      <PublicContact />
+    </>
+  }
+/>
 
       {/* ==========================================
           PUBLIC PAGES
@@ -358,6 +387,7 @@ function App() {
   path="/donor-messages"
   element={<DonorMessages />}
 />
+
 
 
     </Routes>
