@@ -22,7 +22,6 @@ public class AuthController {
     private final BCryptPasswordEncoder passwordEncoder =
             new BCryptPasswordEncoder();
 
-
     // ==========================================
     // CONSTRUCTOR
     // ==========================================
@@ -31,18 +30,19 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-
     // ==========================================
     // REGISTER
     // ==========================================
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(
-            @RequestBody User user) {
+    public ResponseEntity<?> register(@RequestBody User user) {
 
         try {
 
-            // Check required fields
+            // ------------------------------------------
+            // CHECK NAME
+            // ------------------------------------------
+
             if (user.getName() == null ||
                     user.getName().trim().isEmpty()) {
 
@@ -51,6 +51,9 @@ public class AuthController {
                         .body("Name is required");
             }
 
+            // ------------------------------------------
+            // CHECK EMAIL
+            // ------------------------------------------
 
             if (user.getEmail() == null ||
                     user.getEmail().trim().isEmpty()) {
@@ -60,6 +63,11 @@ public class AuthController {
                         .body("Email is required");
             }
 
+            String email = user.getEmail().trim();
+
+            // ------------------------------------------
+            // CHECK PASSWORD
+            // ------------------------------------------
 
             if (user.getPassword() == null ||
                     user.getPassword().length() < 6) {
@@ -69,6 +77,9 @@ public class AuthController {
                         .body("Password must contain at least 6 characters");
             }
 
+            // ------------------------------------------
+            // CHECK ROLE
+            // ------------------------------------------
 
             if (user.getRole() == null ||
                     user.getRole().trim().isEmpty()) {
@@ -78,15 +89,26 @@ public class AuthController {
                         .body("Role is required");
             }
 
+            String role = user.getRole().trim().toUpperCase();
 
-            // ==========================================
+            // ------------------------------------------
+            // VALIDATE ROLE
+            // ------------------------------------------
+
+            if (!role.equals("DONOR") &&
+                    !role.equals("NGO")) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("Invalid role");
+            }
+
+            // ------------------------------------------
             // CHECK EXISTING EMAIL
-            // ==========================================
+            // ------------------------------------------
 
             User existingUser =
-                    userRepository.findByEmail(
-                            user.getEmail()
-                    );
+                    userRepository.findByEmail(email);
 
             if (existingUser != null) {
 
@@ -95,25 +117,11 @@ public class AuthController {
                         .body("Email already registered");
             }
 
-
-            // ==========================================
-            // VALIDATE ROLE
-            // ==========================================
-
-            if (!user.getRole().equals("DONOR") &&
-                    !user.getRole().equals("NGO")) {
-
-                return ResponseEntity
-                        .badRequest()
-                        .body("Invalid role");
-            }
-
-
-            // ==========================================
+            // ------------------------------------------
             // NGO VALIDATION
-            // ==========================================
+            // ------------------------------------------
 
-            if (user.getRole().equals("NGO")) {
+            if (role.equals("NGO")) {
 
                 if (user.getOrganizationName() == null ||
                         user.getOrganizationName().trim().isEmpty()) {
@@ -132,32 +140,36 @@ public class AuthController {
                 }
             }
 
+            // ------------------------------------------
+            // SET CLEAN VALUES
+            // ------------------------------------------
 
-            // ==========================================
+            user.setEmail(email);
+            user.setRole(role);
+
+            // ------------------------------------------
             // ENCRYPT PASSWORD
-            // ==========================================
+            // ------------------------------------------
 
-            user.setPassword(
+            String encryptedPassword =
                     passwordEncoder.encode(
                             user.getPassword()
-                    )
-            );
+                    );
 
+            user.setPassword(encryptedPassword);
 
-            // ==========================================
+            // ------------------------------------------
             // SAVE USER
-            // ==========================================
+            // ------------------------------------------
 
             int result =
                     userRepository.registerUser(user);
-
 
             if (result > 0) {
 
                 return ResponseEntity
                         .ok("Registration successful!");
             }
-
 
             return ResponseEntity
                     .internalServerError()
@@ -171,11 +183,10 @@ public class AuthController {
                     .internalServerError()
                     .body(
                             "Registration error: "
-                                    + e.getMessage()
+                                    + getErrorMessage(e)
                     );
         }
     }
-
 
     // ==========================================
     // LOGIN
@@ -185,38 +196,139 @@ public class AuthController {
     public ResponseEntity<?> login(
             @RequestBody User loginUser) {
 
-        User user =
-                userRepository.findByEmail(
-                        loginUser.getEmail()
-                );
+        try {
 
-        if (user == null) {
+            // ------------------------------------------
+            // CHECK REQUEST
+            // ------------------------------------------
+
+            if (loginUser == null) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("Login data is required");
+            }
+
+            // ------------------------------------------
+            // CHECK EMAIL
+            // ------------------------------------------
+
+            if (loginUser.getEmail() == null ||
+                    loginUser.getEmail().trim().isEmpty()) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("Email is required");
+            }
+
+            // ------------------------------------------
+            // CHECK PASSWORD
+            // ------------------------------------------
+
+            if (loginUser.getPassword() == null ||
+                    loginUser.getPassword().isEmpty()) {
+
+                return ResponseEntity
+                        .badRequest()
+                        .body("Password is required");
+            }
+
+            // ------------------------------------------
+            // CLEAN EMAIL
+            // ------------------------------------------
+
+            String email =
+                    loginUser.getEmail()
+                            .trim();
+
+            // ------------------------------------------
+            // FIND USER
+            // ------------------------------------------
+
+            User user =
+                    userRepository.findByEmail(email);
+
+            // ------------------------------------------
+            // USER NOT FOUND
+            // ------------------------------------------
+
+            if (user == null) {
+
+                return ResponseEntity
+                        .status(401)
+                        .body("Invalid email or password");
+            }
+
+            // ------------------------------------------
+            // CHECK DATABASE PASSWORD
+            // ------------------------------------------
+
+            if (user.getPassword() == null ||
+                    user.getPassword().trim().isEmpty()) {
+
+                return ResponseEntity
+                        .status(500)
+                        .body("Password is missing for this user");
+            }
+
+            // ------------------------------------------
+            // CHECK PASSWORD
+            // ------------------------------------------
+
+            boolean passwordMatches =
+                    passwordEncoder.matches(
+                            loginUser.getPassword(),
+                            user.getPassword()
+                    );
+
+            // ------------------------------------------
+            // WRONG PASSWORD
+            // ------------------------------------------
+
+            if (!passwordMatches) {
+
+                return ResponseEntity
+                        .status(401)
+                        .body("Invalid email or password");
+            }
+
+            // ------------------------------------------
+            // LOGIN SUCCESS
+            // ------------------------------------------
+
+            return ResponseEntity.ok(user);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
 
             return ResponseEntity
-                    .status(401)
-                    .body("Invalid email or password");
+                    .internalServerError()
+                    .body(
+                            "Login error: "
+                                    + getErrorMessage(e)
+                    );
+        }
+    }
+
+    // ==========================================
+    // ERROR MESSAGE
+    // ==========================================
+
+    private String getErrorMessage(Exception e) {
+
+        if (e.getMessage() != null &&
+                !e.getMessage().trim().isEmpty()) {
+
+            return e.getMessage();
         }
 
+        if (e.getCause() != null &&
+                e.getCause().getMessage() != null) {
 
-        // ==========================================
-        // CHECK PASSWORD
-        // ==========================================
-
-        boolean passwordMatches =
-                passwordEncoder.matches(
-                        loginUser.getPassword(),
-                        user.getPassword()
-                );
-
-
-        if (!passwordMatches) {
-
-            return ResponseEntity
-                    .status(401)
-                    .body("Invalid email or password");
+            return e.getCause().getMessage();
         }
 
-
-        return ResponseEntity.ok(user);
+        return "Unknown server error";
     }
 }
